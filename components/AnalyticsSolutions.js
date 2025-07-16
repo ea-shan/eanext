@@ -127,7 +127,7 @@ export default function AnalyticsSolutions() {
             src={solutions[active].image}
             alt={solutions[active].label}
             className="rounded-3xl border-2 border-dashed border-pink-400 w-full max-w-[420px] aspect-[4/3] object-cover shadow-lg"
-            style={{ minHeight: '320px', maxHeight: '420px' }}
+            style={{ minHeight: '600px', maxHeight: '600px' }}
           />
         </div>
         {/* Details */}

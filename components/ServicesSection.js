@@ -125,8 +125,8 @@ export default function ServicesSection() {
         <div className="flex-[1.2] min-w-0 flex items-center justify-center md:justify-end md:pr-0 pr-0">
           <video
             src={services[active].video}
-            className="rounded-3xl border-2 border-dashed border-pink-400 w-full max-w-[420px] aspect-[4/3] object-cover shadow-lg"
-            style={{ minHeight: '320px', maxHeight: '420px' }}
+            className="rounded-3xl border-2 border-dashed border-pink-400 w-full max-w-[420px] aspect-[4/3] object-cover shadow-lg min-h-[400px] md:min-h-[600px] max-h-[600px]"
+            style={{ minHeight: undefined, maxHeight: undefined }}
             autoPlay
             loop
             muted
