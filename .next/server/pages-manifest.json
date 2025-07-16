@@ -1,0 +1,8 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/": "pages/index.js",
+  "/solutions/multi-touch-attribution": "pages/solutions/multi-touch-attribution.js",
+  "/solutions/voice-of-customer-analytics": "pages/solutions/voice-of-customer-analytics.js"
+}
