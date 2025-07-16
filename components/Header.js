@@ -15,7 +15,7 @@ const menu = [
           { icon: <FaCogs className="inline-block mr-1" />, label: <Link href="/solutions/multi-touch-attribution">Multi-Touch Attribution</Link> },
           { icon: <FaChartPie className="inline-block mr-1" />, label: <Link href="/solutions/customer-lifetime-value">Customer Lifetime Value</Link> },
           { icon: <FaChartBar className="inline-block mr-1" />, label: <Link href="/solutions/marketing-mix-modeling-analytics">Marketing Mix-Modeling</Link> },
-          { icon: <FaPaintBrush className="inline-block mr-1" />, label: 'Recommendation Engine' },
+          { icon: <FaPaintBrush className="inline-block mr-1" />, label: <Link href="/solutions/recommendation-engine">Recommendation Engine</Link> },
         ],
       },
       {

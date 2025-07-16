@@ -47,27 +47,20 @@ export default function Footer() {
   const vapiAssistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
   const vapiRef = useRef();
 
-  // DEBUG: Log API key and assistant ID
+  // Minimal Vapi Next.js Example Integration
   useEffect(() => {
-    console.log('Vapi API Key:', vapiApiKey, typeof vapiApiKey);
-    console.log('Vapi Assistant ID:', vapiAssistantId, typeof vapiAssistantId);
-    // TEMP: Hardcode for debugging if env is not working
-    const debugApiKey = vapiApiKey || '65b4b4c5-4dad-4c1c-9a72-8972a8f9cfcc'; // <-- replace with your actual key for testing
-    const debugAssistantId = vapiAssistantId || '73c945c0-2589-4001-9992-21d767c7768a'; // <-- replace with your actual assistant id for testing
-    if (!vapiRef.current && debugApiKey) {
-      vapiRef.current = new Vapi({ apiKey: debugApiKey });
+    if (!vapiRef.current && vapiApiKey) {
+      vapiRef.current = new Vapi({ apiKey: vapiApiKey });
     }
-  }, [vapiApiKey, vapiAssistantId]);
+  }, [vapiApiKey]);
 
   const handleStartCall = useCallback(() => {
     setError('');
     setTranscript('');
     setCallActive(true);
     setIsListening(true);
-    // TEMP: Use debugAssistantId for testing
-    const debugAssistantId = vapiAssistantId || 'asst-xyz456...'; // <-- replace with your actual assistant id for testing
-    if (vapiRef.current && debugAssistantId) {
-      vapiRef.current.start({ assistant: debugAssistantId });
+    if (vapiRef.current && vapiAssistantId) {
+      vapiRef.current.start({ assistant: vapiAssistantId });
       vapiRef.current.on('transcript', (data) => {
         setTranscript((prev) => prev + (prev ? '\n' : '') + data.transcript);
       });
@@ -187,7 +180,7 @@ export default function Footer() {
       </button>
 
       {/* Vapi AI Chat Headless UI */}
-      <button
+      {/* <button
         onClick={() => setChatOpen(true)}
         className="fixed z-50 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all flex items-center justify-center
           bottom-24 right-4 md:bottom-32 md:right-8"
@@ -195,7 +188,7 @@ export default function Footer() {
         style={{ boxShadow: '0 4px 24px 0 rgba(155,81,224,0.10)' }}
       >
         <FaRobot className="text-2xl" />
-      </button>
+      </button> */}
       <Dialog open={chatOpen} onClose={() => setChatOpen(false)} className="fixed inset-0 z-[999] flex items-end md:items-center justify-center">
         <div className="fixed inset-0 bg-black/40" aria-hidden="true" onClick={() => setChatOpen(false)} />
         <Dialog.Panel className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto mb-8 animate-fadeInUp flex flex-col gap-4">
