@@ -21,7 +21,11 @@ const menu = [
       {
         heading: 'Analytics Services',
         items: [
-          { icon: <FaUsers className="inline-block mr-1" />, label: 'Customer Analytics', sub: ['Customer Segmentation', 'Lookalike Modeling', 'Sentiment Analysis'] },
+          {
+            icon: <FaUsers className="inline-block mr-1" />, label: (
+              <Link href="/services/customer-analytics" className="hover:text-pink-600">Customer Analytics</Link>
+            ), sub: ['Customer Segmentation', 'Lookalike Modeling', 'Sentiment Analysis']
+          },
           { icon: <FaChartBar className="inline-block mr-1" />, label: 'Marketing Analytics', sub: ['Predictive Analytics', 'Churn Prediction'] },
           { icon: <FaPaintBrush className="inline-block mr-1" />, label: 'Data Visualization', sub: ['Data Reporting and Visualisation'] },
           { icon: <FaDatabase className="inline-block mr-1" />, label: 'Business Intelligence' },

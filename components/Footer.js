@@ -116,7 +116,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center mb-2">
             <Image src="/ea-main.webp" alt="Express Analytics Logo" width={48} height={48} className="w-12 h-12 object-contain mr-2" />
-            <span className="font-semibold text-lg" style={{ color: 'white' }}>express <span className="text-pink-400">analytics</span></span>
+            <span className="font-semibold text-lg" style={{ color: 'white' }}>express <span style={{ color: 'white' }}>analytics</span></span>
           </div>
           <div className="text-sm text-gray-400 mb-4">AI-Powered Smarter Marketing</div>
         </div>
