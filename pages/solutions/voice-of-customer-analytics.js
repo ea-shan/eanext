@@ -222,6 +222,21 @@ export default function VoiceOfCustomerAnalytics() {
   // HubSpot form loader (like contact-us.js)
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      function customizeSubmissionMessage() {
+        const observer = new MutationObserver(() => {
+          const msg = document.querySelector('#hubspot-form-placeholder .submitted-message');
+          if (msg) {
+            msg.textContent = 'Thanks for submitting the form. Our Experts will get in touch soon.';
+            msg.style.color = '#fff';
+            msg.style.background = 'none';
+            msg.style.fontSize = '1.2rem';
+            msg.style.textAlign = 'center';
+            msg.style.marginTop = '1.5rem';
+            msg.style.fontWeight = 'bold';
+          }
+        });
+        observer.observe(document.getElementById('hubspot-form-placeholder'), { childList: true, subtree: true });
+      }
       if (!window.hbspt) {
         const script = document.createElement('script');
         script.src = '//js.hsforms.net/forms/embed/v2.js';
@@ -234,6 +249,7 @@ export default function VoiceOfCustomerAnalytics() {
               formId: 'c4777f71-73fd-42e3-b3ad-0b4c9c273ec1',
               region: 'na1',
               target: '#hubspot-form-placeholder',
+              onFormSubmitted: customizeSubmissionMessage,
             });
           }
         };
@@ -244,6 +260,7 @@ export default function VoiceOfCustomerAnalytics() {
           formId: 'c4777f71-73fd-42e3-b3ad-0b4c9c273ec1',
           region: 'na1',
           target: '#hubspot-form-placeholder',
+          onFormSubmitted: customizeSubmissionMessage,
         });
       }
     }
@@ -588,15 +605,15 @@ export default function VoiceOfCustomerAnalytics() {
                   width: 100% !important;
                   padding: 0 !important;
                   display: flex !important;
-                  flex-wrap: wrap !important;
-                  gap: 1.5rem !important;
+                  flex-direction: column !important;
+                  gap: 1rem !important;
+                  align-items: stretch !important;
                 }
                 #hubspot-form-placeholder .hs-form-field {
-                  width: 48% !important;
-                  min-width: 220px !important;
-                  margin-bottom: 1.5rem !important;
+                  width: 100% !important;
+                  min-width: 100% !important;
+                  margin-bottom: 1rem !important;
                 }
-                /* Make Work Email and Message fields full width */
                 #hubspot-form-placeholder .hs_email.hs-form-field,
                 #hubspot-form-placeholder .hs_emailaddress.hs-form-field,
                 #hubspot-form-placeholder .hs_message.hs-form-field,
@@ -605,29 +622,42 @@ export default function VoiceOfCustomerAnalytics() {
                   width: 100% !important;
                   min-width: 100% !important;
                 }
-                /* Make phone number input match other input widths */
                 #hubspot-form-placeholder .hs_phone.hs-form-field,
                 #hubspot-form-placeholder input[type="tel"] {
-                  width: 48% !important;
-                  min-width: 220px !important;
-                }
-                /* Make submit button full width */
-                #hubspot-form-placeholder .hs-button {
                   width: 100% !important;
                   min-width: 100% !important;
                 }
-                @media (max-width: 768px) {
-                  #hubspot-form-placeholder form {
-                    flex-direction: column !important;
-                    gap: 0.5rem !important;
-                  }
-                  #hubspot-form-placeholder .hs-form-field {
-                    width: 100% !important;
-                  }
-                  #hubspot-form-placeholder .hs_phone.hs-form-field,
-                  #hubspot-form-placeholder input[type="tel"] {
-                    width: 100% !important;
-                  }
+                #hubspot-form-placeholder .hs-button {
+                  width: 100% !important;
+                  min-width: 100% !important;
+                  padding-left: 2rem !important;
+                  padding-right: 2rem !important;
+                  padding-top: 1rem !important;
+                  padding-bottom: 1rem !important;
+                  background: linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%) !important;
+                  color: #fff !important;
+                  font-weight: bold;
+                  border-radius: 0.5rem !important;
+                  border: none !important;
+                  font-size: 1.15rem !important;
+                  margin-top: 1.25rem !important;
+                  margin-bottom: 0.5rem !important;
+                  transition: background 0.3s;
+                }
+                #hubspot-form-placeholder .hs-button:hover {
+                  background: linear-gradient(90deg, #9B51E0 0%, #DC1B36 100%) !important;
+                }
+                #hubspot-form-placeholder .hs-error-msgs, #hubspot-form-placeholder .hs-error-msg {
+                  color: #ffb4b4 !important;
+                }
+                #hubspot-form-placeholder .actions {
+                  width: 100% !important;
+                }
+                #hubspot-form-placeholder .hs-form-booleancheckbox-display {
+                  margin-bottom: 1.25rem !important;
+                }
+                #hubspot-form-placeholder .hs-form {
+                  width: 100% !important;
                 }
                 #hubspot-form-placeholder label {
                   color: #fff !important;
@@ -646,29 +676,13 @@ export default function VoiceOfCustomerAnalytics() {
                 #hubspot-form-placeholder input::placeholder, #hubspot-form-placeholder textarea::placeholder {
                   color: #bbb !important;
                 }
-                #hubspot-form-placeholder .hs-button {
-                  background: linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%) !important;
+                #hubspot-form-placeholder .submitted-message {
                   color: #fff !important;
-                  font-weight: bold;
-                  border-radius: 0.5rem !important;
-                  border: none !important;
-                  width: 100% !important;
-                  padding: 0.85rem 0 !important;
-                  font-size: 1.15rem !important;
-                  margin-top: 1.25rem !important;
-                  margin-bottom: 0.5rem !important;
-                }
-                #hubspot-form-placeholder .hs-error-msgs, #hubspot-form-placeholder .hs-error-msg {
-                  color: #ffb4b4 !important;
-                }
-                #hubspot-form-placeholder .actions {
-                  width: 100% !important;
-                }
-                #hubspot-form-placeholder .hs-form-booleancheckbox-display {
-                  margin-bottom: 1.25rem !important;
-                }
-                #hubspot-form-placeholder .hs-form {
-                  width: 100% !important;
+                  background: none !important;
+                  font-size: 1.2rem !important;
+                  text-align: center !important;
+                  margin-top: 1.5rem !important;
+                  font-weight: bold !important;
                 }
               `}</style>
             </div>
