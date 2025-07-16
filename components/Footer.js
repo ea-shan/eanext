@@ -1,8 +1,10 @@
 import Image from 'next/image';
-import { FaChevronUp } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import Link from 'next/link';
+import { FaMicrophone, FaTimes, FaRobot, FaChevronUp } from 'react-icons/fa';
+import { useCallback, useRef } from 'react';
+import Vapi from '@vapi-ai/web';
 
 export default function Footer() {
   const [show, setShow] = useState(false);
@@ -13,6 +15,7 @@ export default function Footer() {
     marketing: false,
   });
   const [cookieAccepted, setCookieAccepted] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     // Check localStorage for cookie acceptance
@@ -29,6 +32,69 @@ export default function Footer() {
       setTimeout(() => setCookieOpen(true), 1000);
     }
   }, [cookieAccepted]);
+
+  // Move to Top Button always visible (responsive)
+  useEffect(() => {
+    setShow(true);
+  }, []);
+
+  // Vapi AI Chat Headless UI
+  const [chatOpen, setChatOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [callActive, setCallActive] = useState(false);
+  const vapiApiKey = process.env.NEXT_PUBLIC_VAPI_API_KEY;
+  const vapiAssistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+  const vapiRef = useRef();
+
+  // DEBUG: Log API key and assistant ID
+  useEffect(() => {
+    console.log('Vapi API Key:', vapiApiKey, typeof vapiApiKey);
+    console.log('Vapi Assistant ID:', vapiAssistantId, typeof vapiAssistantId);
+    // TEMP: Hardcode for debugging if env is not working
+    const debugApiKey = vapiApiKey || '65b4b4c5-4dad-4c1c-9a72-8972a8f9cfcc'; // <-- replace with your actual key for testing
+    const debugAssistantId = vapiAssistantId || '73c945c0-2589-4001-9992-21d767c7768a'; // <-- replace with your actual assistant id for testing
+    if (!vapiRef.current && debugApiKey) {
+      vapiRef.current = new Vapi({ apiKey: debugApiKey });
+    }
+  }, [vapiApiKey, vapiAssistantId]);
+
+  const handleStartCall = useCallback(() => {
+    setError('');
+    setTranscript('');
+    setCallActive(true);
+    setIsListening(true);
+    // TEMP: Use debugAssistantId for testing
+    const debugAssistantId = vapiAssistantId || 'asst-xyz456...'; // <-- replace with your actual assistant id for testing
+    if (vapiRef.current && debugAssistantId) {
+      vapiRef.current.start({ assistant: debugAssistantId });
+      vapiRef.current.on('transcript', (data) => {
+        setTranscript((prev) => prev + (prev ? '\n' : '') + data.transcript);
+      });
+      vapiRef.current.on('error', (err) => {
+        setError('Voice AI error: ' + (err?.message || 'Unknown error'));
+        setCallActive(false);
+        setIsListening(false);
+      });
+      vapiRef.current.on('end', () => {
+        setCallActive(false);
+        setIsListening(false);
+      });
+    } else {
+      setError('Vapi not initialized or Assistant ID missing.');
+      setCallActive(false);
+      setIsListening(false);
+    }
+  }, [vapiAssistantId]);
+
+  const handleEndCall = useCallback(() => {
+    if (vapiRef.current) {
+      vapiRef.current.stop();
+    }
+    setCallActive(false);
+    setIsListening(false);
+    setTranscript('');
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -95,7 +161,7 @@ export default function Footer() {
             <button type="submit" className="mt-2 px-4 py-2 rounded bg-pink-600 hover:bg-pink-700 text-white font-semibold">Subscribe</button>
           </form>
           <div className="mt-4 text-xs text-gray-400">
-            📞 Call +1 (618) 224 3573<br />
+            �� Call +1 (618) 224 3573<br />
             Email: info@expressanalytics.net
           </div>
         </div>
@@ -108,16 +174,54 @@ export default function Footer() {
         </div>
         <span>© 2025 Express Analytics, All Rights Reserved</span>
       </div>
-      {/* Move to Top Button */}
-      {show && (
-        <button
-          onClick={scrollToTop}
-          className="fixed md:bottom-8 md:right-8 bottom-4 left-1/2 md:left-auto transform md:translate-x-0 -translate-x-1/2 z-50 bg-gradient-main text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all flex items-center justify-center"
-          aria-label="Move to top"
-        >
-          <FaChevronUp className="text-2xl" />
-        </button>
-      )}
+      {/* Move to Top Button - always visible, responsive */}
+      <button
+        onClick={scrollToTop}
+        className="fixed z-50 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all flex items-center justify-center
+          bottom-4 right-4 md:bottom-8 md:right-8
+          left-1/2 md:left-auto transform md:translate-x-0 -translate-x-1/2 md:translate-x-0"
+        aria-label="Move to top"
+        style={{ boxShadow: '0 4px 24px 0 rgba(155,81,224,0.10)' }}
+      >
+        <FaChevronUp className="text-2xl" />
+      </button>
+
+      {/* Vapi AI Chat Headless UI */}
+      <button
+        onClick={() => setChatOpen(true)}
+        className="fixed z-50 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all flex items-center justify-center
+          bottom-24 right-4 md:bottom-32 md:right-8"
+        aria-label="Open AI Chat"
+        style={{ boxShadow: '0 4px 24px 0 rgba(155,81,224,0.10)' }}
+      >
+        <FaRobot className="text-2xl" />
+      </button>
+      <Dialog open={chatOpen} onClose={() => setChatOpen(false)} className="fixed inset-0 z-[999] flex items-end md:items-center justify-center">
+        <div className="fixed inset-0 bg-black/40" aria-hidden="true" onClick={() => setChatOpen(false)} />
+        <Dialog.Panel className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto mb-8 animate-fadeInUp flex flex-col gap-4">
+          <button onClick={() => setChatOpen(false)} className="absolute top-3 right-3 text-gray-400 hover:text-pink-600"><FaTimes size={20} /></button>
+          <div className="flex items-center gap-2 mb-2">
+            <FaRobot className="text-pink-600 text-2xl" />
+            <span className="font-bold text-lg text-gray-900">Express Analytics AI Assistant</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={callActive ? handleEndCall : handleStartCall}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white transition
+                ${callActive ? 'bg-red-600 hover:bg-red-700' : 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-purple-600 hover:to-pink-600'}`}
+              disabled={isListening && !callActive}
+            >
+              <FaMicrophone /> {callActive ? 'End Call' : 'Start Voice Call'}
+            </button>
+            <div className="mt-2 p-3 bg-gray-100 rounded-lg min-h-[60px] text-gray-800 text-sm font-mono whitespace-pre-wrap">
+              {error ? (
+                <span className="text-red-600">{error}</span>
+              ) : callActive ? (transcript || 'Listening...') : 'Click "Start Voice Call" to begin.'}
+            </div>
+          </div>
+          <div className="text-xs text-gray-400 mt-2">Real-time transcript will appear here.</div>
+        </Dialog.Panel>
+      </Dialog>
       {/* Cookie Notification */}
       {!cookieAccepted && (
         <Dialog open={cookieOpen} onClose={() => setCookieOpen(false)} className="fixed inset-0 z-[999] pointer-events-none">
