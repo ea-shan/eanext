@@ -70,7 +70,7 @@ function CustomerAnalyticsDashboard() {
         {summaryData.map((item, idx) => (
           <div key={idx} className="flex-1 min-w-[180px] bg-gray-100 rounded-xl p-4 shadow text-center">
             <div className="font-semibold text-gray-700">{item.title}</div>
-            <div className="text-2xl font-bold text-pink-700">{item.value}</div>
+            <div className="text-2xl font-bold text-red-700">{item.value}</div>
             <div className="text-xs text-green-600 mt-1">{item.change}</div>
           </div>
         ))}
@@ -296,7 +296,7 @@ function MarketingAnalyticsDashboard() {
         {marketingSummaryCards.map((card) => (
           <div key={card.title} className="flex-1 min-w-[180px] bg-white rounded-xl p-4 shadow text-center">
             <div className="font-semibold text-gray-700">{card.title}</div>
-            <div className="text-2xl font-bold text-pink-700">{card.value}</div>
+            <div className="text-2xl font-bold text-red-700">{card.value}</div>
             <div className="text-xs text-red-500 mt-1">▼ {card.change} vs previous period</div>
           </div>
         ))}
@@ -393,8 +393,8 @@ export default function HeroSection() {
     <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center py-16 px-4 gap-8">
       {/* Left Side */}
       <div className="flex-1">
-        <h5 className="text-sm font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2 uppercase">From Chaos to Clarity</h5>
-        <h1 className="text-4xl md:text-5xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-4 leading-tight">
+        <h5 className="text-sm font-bold text-red-700 mb-2 uppercase">From Chaos to Clarity</h5>
+        <h1 className="text-4xl md:text-5xl font-semibold text-gray-700 mb-4 leading-tight">
           Is Your Business<br />
           Struggling to Make<br />
           Data-Driven Decisions?
@@ -402,14 +402,14 @@ export default function HeroSection() {
         <p className="text-gray-700 text-lg mb-6">
           We convert raw data into actionable insights, enabling enterprises and organizations to make smarter decisions and drive sustainable growth with AI-powered solutions in data management, marketing analytics, and business intelligence.
         </p>
-        <button className="flex items-center px-6 py-3 rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold shadow-md hover:from-pink-600 hover:to-purple-600 transition">
-          <span className="mr-2 text-white">💎</span> Schedule a Consultation
+        <button className="mt-4 px-8 py-3 rounded-full bg-red-600 text-white font-semibold text-lg shadow-lg hover:bg-red-700 transition">
+          <span className="mr-2 text-white"></span> Free Consultation
         </button>
       </div>
       {/* Right Side: Slider */}
       <div className="flex-1 flex flex-col items-center select-none w-full relative">
         <div
-          className="relative w-full max-w-[95vw] sm:max-w-[420px] md:max-w-[540px] h-[220px] sm:h-[320px] md:h-[420px] flex items-center justify-center overflow-visible"
+          className="relative w-full max-w-[95vw] sm:max-w-[420px] md:max-w-[540px] h-[320px] sm:h-[320px] md:h-[420px] flex items-center justify-center overflow-visible"
           onMouseDown={handleDragStart}
           onMouseMove={handleDragMove}
           onMouseUp={handleDragEnd}
@@ -417,7 +417,7 @@ export default function HeroSection() {
           onTouchStart={handleDragStart}
           onTouchMove={handleDragMove}
           onTouchEnd={handleDragEnd}
-          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+          style={{ cursor: isDragging ? 'grabbing' : 'grab', maxWidth: '100vw', overflow: 'hidden' }}
         >
           {sliderImages.map((img, idx) => {
             // Card stacking effect
@@ -432,7 +432,7 @@ export default function HeroSection() {
             return (
               <div
                 key={img.src}
-                className={`absolute top-0 left-0 h-[200px] sm:h-[300px] md:h-[400px] w-full sm:w-[380px] md:w-[500px] rounded-xl border-2 border-dashed border-pink-400 shadow-lg bg-white transition-all duration-300 ease-in-out ${isActive ? 'cursor-pointer' : 'pointer-events-none opacity-80'}`}
+                className={`absolute top-0 left-0 h-[300px] sm:h-[300px] md:h-[400px] w-full sm:w-[380px] md:w-[500px] rounded-xl border-2 border-dashed border-red-400 shadow-lg bg-white transition-all duration-300 ease-in-out ${isActive ? 'cursor-pointer' : 'pointer-events-none opacity-80'}`}
                 style={{
                   zIndex: z,
                   transform: `translateX(${translateX}px) scale(${scale}) rotate(${rotate}deg)`
@@ -448,14 +448,13 @@ export default function HeroSection() {
                 />
                 {/* Animated indicator for active card */}
                 {isActive && (
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center select-none">
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center select-none">
                     <div className="flex items-center gap-2">
                       <span className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
                       </span>
                       <span className="text-xs text-gray-500 animate-fadeInUp font-medium">Click to see live dashboard</span>
-                      <span className="ml-1 animate-bounce text-pink-400 text-lg">👆</span>
                     </div>
                   </div>
                 )}
@@ -468,7 +467,7 @@ export default function HeroSection() {
           {sliderImages.map((_, idx) => (
             <button
               key={idx}
-              className={`h-2 w-8 rounded-full transition-all duration-300 ${idx === current ? 'bg-gradient-to-r from-pink-500 to-purple-500' : 'bg-gray-300'}`}
+              className={`h-2 w-8 rounded-full transition-all duration-300 ${idx === current ? 'bg-red-600' : 'bg-gray-300'}`}
               onClick={() => setCurrent(idx)}
               aria-label={`Go to slide ${idx + 1}`}
               style={{ outline: 'none', border: 'none' }}
@@ -480,7 +479,7 @@ export default function HeroSection() {
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-4 md:p-6 max-w-6xl w-full max-h-[90vh] relative overflow-y-auto shadow-lg">
-            <button onClick={closeModal} className="absolute top-2 right-2 text-gray-500 hover:text-pink-600 text-2xl z-20 bg-white/80 rounded-full w-10 h-10 flex items-center justify-center shadow-md border border-gray-200">&times;</button>
+            <button onClick={closeModal} className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-2xl z-20 bg-white/80 rounded-full w-10 h-10 flex items-center justify-center shadow-md border border-gray-200">&times;</button>
             {modalImg?.title === 'Customer Analytics' ? (
               <CustomerAnalyticsDashboard />
             ) : modalImg?.title === 'Business Intelligence' ? (
@@ -489,10 +488,10 @@ export default function HeroSection() {
               <MarketingAnalyticsDashboard />
             ) : (
               <>
-                <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">{modalImg?.title} Dashboard</h2>
+                <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-gray-500 to-red-500 bg-clip-text text-transparent">{modalImg?.title} Dashboard</h2>
                 <img src={modalImg?.src} alt={modalImg?.alt} className="w-full h-64 object-contain mb-4 rounded" />
                 {/* Dummy chart area */}
-                <div className="w-full h-40 bg-gray-100 border-2 border-dashed border-pink-400 rounded flex items-center justify-center">
+                <div className="w-full h-40 bg-gray-100 border-2 border-dashed border-red-400 rounded flex items-center justify-center">
                   <span className="text-gray-400">[Charts will appear here]</span>
                 </div>
               </>

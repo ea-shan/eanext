@@ -16,11 +16,11 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <StatsBar />
+        {/* <StatsBar /> */}
         <TransformDataSection />
-        <ShowcaseVideoSection />
         <ServicesSection />
         <AnalyticsSolutions />
+        <ShowcaseVideoSection />
         <TestimonialsSection />
         <WhyChooseUs />
         <ResourcesCarousel />

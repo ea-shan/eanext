@@ -1,96 +1,131 @@
-import { useState } from 'react';
-import { FaComments, FaLink, FaChartPie, FaChartBar, FaRobot, FaChartLine, FaUserFriends, FaUsers, FaSync, FaMobileAlt, FaMoneyBillWave, FaBullseye, FaChartArea, FaCogs, FaLightbulb, FaUserCheck, FaSmile, FaBrain, FaProjectDiagram, FaCheckCircle } from 'react-icons/fa';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { FaComments, FaLink, FaChartPie, FaChartBar, FaRobot, FaQuestionCircle, FaHeadset, FaTimes, FaMicrophone } from 'react-icons/fa';
+import Vapi from '@vapi-ai/web';
 
 const solutions = [
   {
     key: 'voca',
-    label: 'VOCA',
-    icon: <FaComments className="w-6 h-6 text-white" />, // white icon
+    title: 'Voice of Customer Analytics',
     image: '/Voice-of-Customer-Analytics-2.webp',
-    summary: 'Voice of Customer Analytics',
-    desc: 'Decode sentiment and trends from customer feedback.',
-    features: [
-      { icon: <FaSmile className="text-pink-600 mr-2" />, title: 'Sentiment Analysis', desc: 'Assess customer perceptions across multiple platforms.' },
-      { icon: <FaBrain className="text-pink-600 mr-2" />, title: 'Emotion Detection', desc: 'Go beyond words—analyze trust, joy, anger, and more.' },
-      { icon: <FaProjectDiagram className="text-pink-600 mr-2" />, title: 'Topic & Keyword Modeling', desc: 'Detect emerging trends in customer feedback.' },
-      { icon: <FaChartBar className="text-pink-600 mr-2" />, title: 'Visual Dashboards', desc: 'Get real-time insights at a glance.' },
-      { icon: <FaCheckCircle className="text-pink-600 mr-2" />, title: 'Sarcasm & Fake Review Detection', desc: 'No more misleading data—see the real picture.' },
-    ],
-    cta: 'Turn customer conversations into smarter business decisions',
-    learn: 'Learn More',
+    summary: 'Decode sentiment and trends from feedback.',
+    icon: <FaComments className="w-8 h-8 text-pink-600" />,
+    details: 'Our Voice of Customer Analytics helps you understand what your customers are really saying, so you can act on feedback and improve experiences.'
   },
   {
     key: 'multi',
-    label: 'Multi-Touch Attribution',
-    icon: <FaLink className="w-6 h-6 text-white" />,
+    title: 'Multi-Touch Attribution',
     image: '/Multi-Touch-Attribution-2.webp',
-    summary: 'Know What’s Working. Cut What’s Not.',
-    desc: 'Our Multi-Touch Attribution (MTA) model helps you track every customer interaction, so you can invest where it matters and stop wasting budget on what doesn’t.',
-    features: [
-      { icon: <FaChartLine className="text-pink-600 mr-2" />, title: 'Channel Performance Tracking', desc: 'See which touchpoints drive conversions.' },
-      { icon: <FaSync className="text-pink-600 mr-2" />, title: 'Real-Time Analytics', desc: 'Continuously refine campaigns with real-time performance analytics.' },
-      { icon: <FaCogs className="text-pink-600 mr-2" />, title: 'Data-Driven Attribution', desc: 'Assign accurate credit to every interaction.' },
-      { icon: <FaMobileAlt className="text-pink-600 mr-2" />, title: 'Cross-Device Insights', desc: 'Track customer journeys across web, mobile, and offline channels.' },
-      { icon: <FaMoneyBillWave className="text-pink-600 mr-2" />, title: 'Optimized Budget Allocation', desc: 'Maximize ROI by prioritizing high-performing channels.' },
-    ],
-    cta: 'Turn scattered touchpoints into a seamless strategy for better marketing decisions',
-    learn: 'Learn More',
+    summary: 'Track every customer interaction.',
+    icon: <FaLink className="w-8 h-8 text-pink-600" />,
+    details: 'Multi-Touch Attribution lets you see which marketing touchpoints drive results, so you can optimize your spend and boost ROI.'
   },
   {
     key: 'clv',
-    label: 'Customer Lifetime Value',
-    icon: <FaChartPie className="w-6 h-6 text-white" />,
+    title: 'Customer Lifetime Value',
     image: '/Customer-Lifetime-Value-2-1.webp',
-    summary: 'Find Your Best Customers—and Keep Them.',
-    desc: 'Express Analytics helps you identify high-value customers, predict future revenue, and optimize marketing spend for long-term growth.',
-    features: [
-      { icon: <FaChartLine className="text-pink-600 mr-2" />, title: 'Predict Future Revenue', desc: 'Forecast customer value and retention over time.' },
-      { icon: <FaUsers className="text-pink-600 mr-2" />, title: 'Customer Segmentation', desc: 'Group customers by spending patterns and loyalty.' },
-      { icon: <FaUserCheck className="text-pink-600 mr-2" />, title: 'Churn Prediction', desc: 'Identify at-risk customers and re-engage them before they leave.' },
-      { icon: <FaMoneyBillWave className="text-pink-600 mr-2" />, title: 'Optimized Acquisition Cost', desc: 'Ensure CLV always outweighs customer acquisition costs.' },
-      { icon: <FaChartBar className="text-pink-600 mr-2" />, title: 'Real-Time CLV Insights', desc: 'Track customer behavior and lifetime value on live dashboards.' },
-    ],
-    cta: 'Know who’s worth the investment—and build relationships that last',
-    learn: 'Learn More',
+    summary: 'Find and keep your best customers.',
+    icon: <FaChartPie className="w-8 h-8 text-pink-600" />,
+    details: 'Identify your most valuable customers and predict future revenue to focus your efforts where they matter most.'
   },
   {
     key: 'mix',
-    label: 'Marketing Mix Modeling',
-    icon: <FaChartBar className="w-6 h-6 text-white" />,
+    title: 'Marketing Mix Modeling',
     image: '/Marketing-Mix-Modeling-2.webp',
-    summary: 'Optimize Marketing Performance with Data-Driven Analysis',
-    desc: 'Don’t just spend—spend smarter. Express Analytics helps you measure, predict, and optimize marketing performance across every channel, online and offline.',
-    features: [
-      { icon: <FaChartLine className="text-pink-600 mr-2" />, title: 'Channel Performance Tracking', desc: 'Access real-time business performance insights' },
-      { icon: <FaBullseye className="text-pink-600 mr-2" />, title: 'Budget Optimization', desc: 'Identify potential risks and opportunities early.' },
-      { icon: <FaProjectDiagram className="text-pink-600 mr-2" />, title: 'Campaign Impact Analysis', desc: 'Access on-demand reports for informed decision-making.' },
-      { icon: <FaChartArea className="text-pink-600 mr-2" />, title: 'Real-Time Dashboards', desc: 'Perform multi-dimensional data analysis efficiently.' },
-      { icon: <FaLightbulb className="text-pink-600 mr-2" />, title: 'AI-Powered Insights', desc: 'Align strategy with execution for real impact.' },
-    ],
-    cta: 'Make data-backed decisions that drive real business growth',
-    learn: 'Learn More',
+    summary: 'Optimize marketing performance.',
+    icon: <FaChartBar className="w-8 h-8 text-pink-600" />,
+    details: 'Analyze and optimize your marketing channels for maximum impact, both online and offline.'
   },
   {
     key: 'recommend',
-    label: 'Recommendation Engine',
-    icon: <FaRobot className="w-6 h-6 text-white" />,
+    title: 'Recommendation Engine',
     image: '/Recommendation-Engine-2.webp',
-    summary: 'Smart Suggestions. Bigger Sales. Happier Customers.',
-    desc: 'Know what your customers want—before they do. Express Analytics’ AI-powered Recommendation Engine helps you deliver personalized product suggestions that boost conversions, increase basket size, and keep users engaged.',
-    features: [
-      { icon: <FaChartPie className="text-pink-600 mr-2" />, title: 'Product-Based Recommendations', desc: 'Suggest items based on browsing history, price, and category.' },
-      { icon: <FaUserFriends className="text-pink-600 mr-2" />, title: 'User-Based Recommendations', desc: 'Predict purchases using customer profiles and preferences.' },
-      { icon: <FaBullseye className="text-pink-600 mr-2" />, title: 'Cross-Selling & Upselling', desc: 'Drive higher order values with smart product pairings.' },
-      { icon: <FaLightbulb className="text-pink-600 mr-2" />, title: 'AI & NLP-Driven Insights', desc: 'Deliver hyper-relevant recommendations in real time.' },
-      { icon: <FaSmile className="text-pink-600 mr-2" />, title: 'Better User Experience', desc: 'Reduce bounce rates by helping customers find what they need—fast.' },
-    ],
-    cta: 'Turn data into dynamic, high-converting recommendations',
-    learn: 'Learn More',
+    summary: 'Deliver personalized suggestions.',
+    icon: <FaRobot className="w-8 h-8 text-pink-600" />,
+    details: 'Boost conversions and engagement with AI-powered product recommendations tailored to each user.'
   },
 ];
 
+const extraCard = {
+  key: 'more',
+  title: 'Get to know more',
+  image: '',
+  summary: 'Discover how our solutions can transform your business.',
+  icon: <div className="flex flex-col items-center"><FaHeadset className="w-8 h-8 text-white animate-zoom-in-out" /><span className="text-xs mt-2 font-semibold text-white">Agent Support</span></div>,
+  details: 'Contact us to learn how Express Analytics can help you unlock the full potential of your data with tailored analytics solutions.',
+};
+
 export default function AnalyticsSolutions() {
-  const [active, setActive] = useState(0);
+  const [modal, setModal] = useState(null);
+  const [vapiOpen, setVapiOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [callActive, setCallActive] = useState(false);
+  const [error, setError] = useState('');
+  const vapiApiKey = process.env.NEXT_PUBLIC_VAPI_API_KEY;
+  const vapiAssistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+  const vapiRef = useRef();
+
+  // Minimal Vapi Next.js Example Integration
+  useEffect(() => {
+    if (!vapiRef.current && vapiApiKey) {
+      vapiRef.current = new Vapi({ apiKey: vapiApiKey });
+    }
+  }, [vapiApiKey]);
+
+  const handleStartCall = useCallback(() => {
+    setError('');
+    setTranscript('');
+    setCallActive(true);
+    setIsListening(true);
+    if (vapiRef.current && vapiAssistantId) {
+      vapiRef.current.start({ assistant: vapiAssistantId });
+      vapiRef.current.on('transcript', (data) => {
+        setTranscript((prev) => prev + (prev ? '\n' : '') + data.transcript);
+      });
+      vapiRef.current.on('error', (err) => {
+        setError('Voice AI error: ' + (err?.message || 'Unknown error'));
+        setCallActive(false);
+        setIsListening(false);
+      });
+      vapiRef.current.on('end', () => {
+        setCallActive(false);
+        setIsListening(false);
+      });
+    } else {
+      setError('Vapi not initialized or Assistant ID missing.');
+      setCallActive(false);
+      setIsListening(false);
+    }
+  }, [vapiAssistantId]);
+
+  const handleEndCall = useCallback(() => {
+    if (vapiRef.current) {
+      vapiRef.current.stop();
+    }
+    setCallActive(false);
+    setIsListening(false);
+    setTranscript('');
+  }, []);
+
+  const handleCardClick = (card) => {
+    if (card.key === 'more') {
+      setVapiOpen(true);
+    } else {
+      setModal(card);
+    }
+  };
+  const closeModal = () => setModal(null);
+  const closeVapi = () => {
+    setVapiOpen(false);
+    setCallActive(false);
+    setIsListening(false);
+    setTranscript('');
+    setError('');
+  };
+
+  // Fill grid to 6 items
+  const gridItems = [...solutions, extraCard];
+
   return (
     <section className="py-16 bg-white text-center">
       <div className="mb-2 flex items-center justify-center gap-2">
@@ -98,56 +133,99 @@ export default function AnalyticsSolutions() {
         <span className="text-xl md:text-2xl font-semibold text-[#DC1B36]">Analytics Solutions</span>
         <span className="text-2xl text-[#DC1B36]">&#x25C7;</span>
       </div>
-      <h3 className="text-2xl md:text-3xl font-bold mb-2 text-center">Unlock Smarter Decisions with Express Analytics</h3>
+      <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Unlock Smarter Decisions with Express Analytics</h3>
       <div className="max-w-7xl mx-auto px-4">
-        <p className="text-gray-700 mb-2 text-lg text-center">We transform raw data into powerful business insights. Our AI-driven analytics solutions are designed to help organizations uncover patterns, predict trends, and make data-backed decisions with confidence. Whether you’re optimizing marketing campaigns, forecasting sales, or enhancing customer engagement, our platform delivers the precision, scalability, and intelligence you need to stay ahead in a data-driven world.</p>
-        {/* Tabs */}
-        <div className="w-full overflow-x-auto my-8 scrollbar-hide md:scrollbar-default">
-          <div className="flex gap-3 min-w-max md:justify-center">
-            {solutions.map((s, i) => (
-              <button
-                key={s.key}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-base md:text-lg transition-all duration-200 ${active === i ? 'bg-gradient-main text-white shadow' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
-                onClick={() => setActive(i)}
-              >
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-main">
-                  {s.icon}
-                </span>
-                {s.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-      {/* Tab Content */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-stretch px-4">
-        {/* Image */}
-        <div className="flex-[1.2] min-w-0 flex items-center justify-center md:justify-end md:pr-0 pr-0">
-          <img
-            src={solutions[active].image}
-            alt={solutions[active].label}
-            className="rounded-3xl border-2 border-dashed border-pink-400 w-full max-w-[420px] aspect-[4/3] object-cover shadow-lg"
-            style={{ minHeight: '600px', maxHeight: '600px' }}
-          />
-        </div>
-        {/* Details */}
-        <div className="flex-[2] min-w-0 flex flex-col items-start justify-center text-left max-w-2xl mx-auto">
-          <h4 className="text-2xl md:text-3xl font-bold text-pink-700 mb-1">{solutions[active].summary}</h4>
-          <div className="text-md md:text-lg font-semibold text-[#DC1B36] mb-2">{solutions[active].desc}</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-4">
-            {solutions[active].features.map((f, idx) => (
-              <div key={f.title} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1 shadow-sm">
-                <div className="flex items-center font-bold text-pink-600 text-base">{f.icon}{f.title}</div>
-                <div className="text-gray-600 text-sm">{f.desc}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {gridItems.map((s, idx) => (
+            <div
+              key={s.key}
+              className={
+                s.key === 'more'
+                  ? 'group bg-gradient-to-br from-gray-900 to-gray-700 rounded-3xl border-2 border-dashed border-gray-800 shadow-lg p-6 flex flex-col items-center justify-center transition-transform hover:scale-105 hover:shadow-2xl cursor-pointer min-h-[340px] text-white'
+                  : 'group bg-white rounded-3xl border-2 border-dashed border-pink-200 shadow-lg p-6 flex flex-col items-center transition-transform hover:scale-105 hover:shadow-2xl cursor-pointer min-h-[340px]'
+              }
+              onClick={() => handleCardClick(s)}
+            >
+              <div className="w-full flex justify-center mb-4">
+                {s.image ? (
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    className="rounded-2xl object-cover w-full max-w-[260px] aspect-[4/3] group-hover:opacity-90 transition"
+                    style={{ minHeight: '180px', maxHeight: '180px' }}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center w-full h-[180px] bg-gray-800 rounded-2xl">
+                    {s.icon}
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-          <div className="mt-2 text-xl font-bold text-gradient-main mb-2">{solutions[active].cta}</div>
-          <button className="mt-2 px-6 py-2 rounded-lg bg-[#DC1B36] text-white font-semibold flex items-center gap-2 shadow hover:bg-[#9B51E0] transition">
-            <span className="text-lg">📊</span> {solutions[active].learn}
-          </button>
+              <div className={`flex items-center gap-2 mb-2 ${s.key === 'more' ? 'text-white' : ''}`}>
+                {s.key !== 'more' && s.icon}
+                <h4 className={`text-xl font-bold ${s.key === 'more' ? 'text-white' : 'text-pink-700'} text-left`}>{s.title}</h4>
+              </div>
+              <div className={`text-md text-center ${s.key === 'more' ? 'text-gray-200' : 'text-gray-600'}`}>{s.summary}</div>
+            </div>
+          ))}
         </div>
       </div>
+      {/* Modal for solution details */}
+      {modal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative text-left">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+              onClick={closeModal}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <div className="flex items-center gap-3 mb-4">
+              {modal.icon}
+              <h4 className="text-2xl font-bold text-pink-700">{modal.title}</h4>
+            </div>
+            <div className="mb-2 text-gray-700 text-lg">{modal.summary}</div>
+            <div className="mb-6 text-gray-500">{modal.details}</div>
+            <button className="px-6 py-2 rounded-lg bg-red-600 text-white font-semibold shadow hover:bg-red-700 transition">
+              Learn More
+            </button>
+          </div>
+        </div>
+      )}
+      {/* Vapi Voice Support Modal */}
+      {vapiOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative text-left">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+              onClick={closeVapi}
+              aria-label="Close"
+            >
+              <FaTimes />
+            </button>
+            <div className="flex items-center gap-3 mb-4">
+              <FaHeadset className="text-pink-600 text-2xl" />
+              <span className="font-bold text-lg text-gray-900">Express Analytics Voice Support</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={callActive ? handleEndCall : handleStartCall}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white transition
+                  ${callActive ? 'bg-red-600 hover:bg-red-700' : 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-purple-600 hover:to-pink-600'}`}
+                disabled={isListening && !callActive}
+              >
+                <FaMicrophone /> {callActive ? 'End Call' : 'Start Voice Call'}
+              </button>
+              <div className="mt-2 p-3 bg-gray-100 rounded-lg min-h-[60px] text-gray-800 text-sm font-mono whitespace-pre-wrap">
+                {error ? (
+                  <span className="text-red-600">{error}</span>
+                ) : callActive ? (transcript || 'Listening...') : 'Click "Start Voice Call" to begin.'}
+              </div>
+            </div>
+            <div className="text-xs text-gray-400 mt-2">Real-time transcript will appear here.</div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

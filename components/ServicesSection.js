@@ -1,155 +1,172 @@
-import { useState } from 'react';
-import { FaUserFriends, FaChartLine, FaChartBar, FaLightbulb, FaBroom, FaUsers, FaChartPie, FaUserCheck, FaSmile, FaBrain, FaBullseye, FaProjectDiagram, FaChartArea, FaMapMarkedAlt, FaCogs, FaSync, FaCheckCircle, FaExclamationTriangle, FaRobot } from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react';
+import { FaUserFriends, FaChartLine, FaChartBar, FaLightbulb, FaBroom, FaUsers, FaChartPie, FaUserCheck, FaSmile, FaBrain, FaBullseye, FaProjectDiagram, FaChartArea, FaMapMarkedAlt, FaCogs, FaSync, FaCheckCircle, FaExclamationTriangle, FaRobot, FaArrowRight } from 'react-icons/fa';
 
 const services = [
   {
     key: 'customer',
     label: 'Customer Analytics',
     icon: <FaUserFriends className="w-6 h-6 text-white" />, // white icon
-    video: '/customer-analytics.mp4',
     summary: 'Understand Customer Behavior with Data-Driven Insights',
-    desc: 'We transform scattered customer data into structured insights, enabling businesses to identify purchasing patterns, customer preferences, and future actions.',
+    video: '/customer-analytics.mp4',
     features: [
-      { icon: <FaUsers className="text-pink-600 mr-2" />, title: 'Customer Segmentation', desc: 'Find patterns, group personas, and market smarter.' },
-      { icon: <FaChartPie className="text-pink-600 mr-2" />, title: 'Customer Lifetime Value', desc: 'Focus on the customers that matter most.' },
-      { icon: <FaUserCheck className="text-pink-600 mr-2" />, title: 'Lookalike Modeling', desc: 'Find new buyers who act just like your best ones.' },
-      { icon: <FaSmile className="text-pink-600 mr-2" />, title: 'Sentiment Analysis', desc: 'Read between the lines of reviews and social chatter.' },
-      { icon: <FaBrain className="text-pink-600 mr-2" />, title: 'Behavioral Analytics', desc: 'Predict what customers will do next (before they do).' },
+      { icon: <FaUsers className="text-white w-6 h-6" />, title: 'Customer Segmentation' },
+      { icon: <FaChartPie className="text-white w-6 h-6" />, title: 'Customer Lifetime Value' },
+      { icon: <FaUserCheck className="text-white w-6 h-6" />, title: 'Lookalike Modeling' },
+      { icon: <FaSmile className="text-white w-6 h-6" />, title: 'Sentiment Analysis' },
+      { icon: <FaBrain className="text-white w-6 h-6" />, title: 'Behavioral Analytics' },
     ],
-    cta: 'Attract, engage & retain your best Customers',
-    learn: 'Learn More',
   },
   {
     key: 'marketing',
     label: 'Marketing Analytics',
     icon: <FaChartLine className="w-6 h-6 text-white" />, // white icon
-    video: '/marketing-analytics.mp4',
     summary: 'Optimize Marketing Efforts with Data-Backed Strategies',
-    desc: 'Know exactly what’s working, where to invest, and how to reach your audience—without the marketing chaos.',
+    video: '/marketing-analytics.mp4',
     features: [
-      { icon: <FaProjectDiagram className="text-pink-600 mr-2" />, title: 'Attribution Modeling', desc: 'See what’s driving conversions and reduce the waste.' },
-      { icon: <FaChartBar className="text-pink-600 mr-2" />, title: 'Marketing Mix Modeling', desc: 'Optimize channels, budgets, and campaigns for max impact.' },
-      { icon: <FaChartArea className="text-pink-600 mr-2" />, title: 'Predictive Analytics', desc: 'Identify trends and make proactive decisions.' },
-      { icon: <FaBullseye className="text-pink-600 mr-2" />, title: 'Personalized Recommendations', desc: 'Serve the right offer to the right customer at the right time.' },
-      { icon: <FaUserCheck className="text-pink-600 mr-2" />, title: 'Churn Prediction', desc: 'Know who’s about to leave—and win them back.' },
+      { icon: <FaProjectDiagram className="text-white w-6 h-6" />, title: 'Attribution Modeling' },
+      { icon: <FaChartBar className="text-white w-6 h-6" />, title: 'Marketing Mix Modeling' },
+      { icon: <FaChartArea className="text-white w-6 h-6" />, title: 'Predictive Analytics' },
+      { icon: <FaBullseye className="text-white w-6 h-6" />, title: 'Personalized Recommendations' },
+      { icon: <FaUserCheck className="text-white w-6 h-6" />, title: 'Churn Prediction' },
     ],
-    cta: 'Drive measurable marketing outcomes with data-backed decisions.',
-    learn: 'Learn More',
   },
   {
     key: 'visualization',
     label: 'Data Visualization',
     icon: <FaChartBar className="w-6 h-6 text-white" />, // white icon
-    video: '/visualization.mp4',
     summary: 'Transform Complex Data into Clear, Actionable Insights',
-    desc: 'Complicated spreadsheets don’t drive decisions—clear visuals do. Express Analytics turns raw numbers into intuitive dashboards that highlight trends, uncover insights, and make decision-making effortless.',
+    video: '/visualization.mp4',
     features: [
-      { icon: <FaChartBar className="text-pink-600 mr-2" />, title: 'Interactive Dashboards', desc: 'Gain insights from comprehensive data views.' },
-      { icon: <FaChartArea className="text-pink-600 mr-2" />, title: 'Predictive Analytics', desc: 'Identify patterns to enhance business strategies.' },
-      { icon: <FaSync className="text-pink-600 mr-2" />, title: 'Live Data Tracking', desc: 'Make real-time decisions with up-to-the-minute insights.' },
-      { icon: <FaMapMarkedAlt className="text-pink-600 mr-2" />, title: 'Geospatial Mapping', desc: 'See customer behavior in different regions.' },
-      { icon: <FaCogs className="text-pink-600 mr-2" />, title: 'Self-Service Analytics', desc: 'Explore data without waiting on IT.' },
+      { icon: <FaChartBar className="text-white w-6 h-6" />, title: 'Interactive Dashboards' },
+      { icon: <FaChartArea className="text-white w-6 h-6" />, title: 'Predictive Analytics' },
+      { icon: <FaSync className="text-white w-6 h-6" />, title: 'Live Data Tracking' },
+      { icon: <FaMapMarkedAlt className="text-white w-6 h-6" />, title: 'Geospatial Mapping' },
+      { icon: <FaCogs className="text-white w-6 h-6" />, title: 'Self-Service Analytics' },
     ],
-    cta: 'Convert data into clarity with our data analytics and visualization services',
-    learn: 'Learn More',
   },
   {
     key: 'business',
     label: 'Business Intelligence',
     icon: <FaLightbulb className="w-6 h-6 text-white" />, // white icon
-    video: '/businessi.mp4',
     summary: 'Leverage Data-Driven Strategies for Smarter Decision-Making',
-    desc: 'No more data silos. Express Analytics brings all your business insights into one place—so you can track performance, predict trends, and make informed decisions, fast.',
+    video: '/businessi.mp4',
     features: [
-      { icon: <FaChartBar className="text-pink-600 mr-2" />, title: 'Digital Dashboard', desc: 'Access real-time business performance insights' },
-      { icon: <FaChartArea className="text-pink-600 mr-2" />, title: 'Predictive Analytics', desc: 'Identify potential risks and opportunities early.' },
-      { icon: <FaCheckCircle className="text-pink-600 mr-2" />, title: 'Ad Hoc Analytics', desc: 'Access on-demand reports for informed decision-making.' },
-      { icon: <FaCogs className="text-pink-600 mr-2" />, title: 'Online Analytical Processing (OLAP)', desc: 'Perform multi-dimensional data analysis efficiently.' },
-      { icon: <FaBullseye className="text-pink-600 mr-2" />, title: 'Enterprise Performance Management', desc: 'Align strategy with execution for real impact.' },
+      { icon: <FaChartBar className="text-white w-6 h-6" />, title: 'Digital Dashboard' },
+      { icon: <FaChartArea className="text-white w-6 h-6" />, title: 'Predictive Analytics' },
+      { icon: <FaCheckCircle className="text-white w-6 h-6" />, title: 'Ad Hoc Analytics' },
+      { icon: <FaCogs className="text-white w-6 h-6" />, title: 'Online Analytical Processing (OLAP)' },
+      { icon: <FaBullseye className="text-white w-6 h-6" />, title: 'Enterprise Performance Management' },
     ],
-    cta: 'Transform fragmented data into strategic insights that drive business growth',
-    learn: 'Learn More',
   },
   {
     key: 'cleaning',
     label: 'Data Cleaning',
     icon: <FaBroom className="w-6 h-6 text-white" />, // white icon
-    video: '/datacleaning.mp4',
     summary: 'Ensure Data Accuracy for Reliable Business Insights',
-    desc: 'Bad data leads to bad decisions. Express Analytics cleans, validates, and transforms your data so you can trust every number, every insight, and every strategy.',
+    video: '/datacleaning.mp4',
     features: [
-      { icon: <FaSync className="text-pink-600 mr-2" />, title: 'Data Integration & Transformation', desc: 'Combine and standardize data from multiple sources.' },
-      { icon: <FaCheckCircle className="text-pink-600 mr-2" />, title: 'Data Validation', desc: 'Eliminate errors, duplicates, and inconsistencies.' },
-      { icon: <FaBroom className="text-pink-600 mr-2" />, title: 'Data Hygiene', desc: 'Keep your datasets fresh, accurate, and ready for action.' },
-      { icon: <FaExclamationTriangle className="text-pink-600 mr-2" />, title: 'Outlier Treatment', desc: 'Detect and correct anomalies before they derail your insights.' },
-      { icon: <FaRobot className="text-pink-600 mr-2" />, title: 'Synthetic Data Generation', desc: 'Use AI-powered modeling to create safe, real-world-like datasets.' },
+      { icon: <FaSync className="text-white w-6 h-6" />, title: 'Data Integration & Transformation' },
+      { icon: <FaCheckCircle className="text-white w-6 h-6" />, title: 'Data Validation' },
+      { icon: <FaBroom className="text-white w-6 h-6" />, title: 'Data Hygiene' },
+      { icon: <FaExclamationTriangle className="text-white w-6 h-6" />, title: 'Outlier Treatment' },
+      { icon: <FaRobot className="text-white w-6 h-6" />, title: 'Synthetic Data Generation' },
     ],
-    cta: 'The first step toward smarter decisions? Clean data',
-    learn: 'Learn More',
   },
 ];
 
 export default function ServicesSection() {
   const [active, setActive] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState(1); // 1: next, -1: prev
+  const timeoutRef = useRef(null);
+  const service = services[active];
+
+  // Autoplay logic
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDirection(1);
+      setActive((prev) => (prev + 1) % services.length);
+    }, 5000); // 5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  // Animation logic
+  useEffect(() => {
+    setAnimating(true);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setAnimating(false), 600);
+    return () => clearTimeout(timeoutRef.current);
+  }, [active]);
+
   return (
-    <section className="py-16 bg-white text-center">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-2 flex items-center justify-center gap-2">
-          <span className="text-2xl text-[#DC1B36]">&#x25C7;</span>
-          <span className="text-xl md:text-2xl font-semibold text-[#DC1B36]">Our Services</span>
-          <span className="text-2xl text-[#DC1B36]">&#x25C7;</span>
-        </div>
-        <h3 className="text-3xl md:text-4xl font-extrabold mb-2 text-gray-900">Delivering Excellence <span className="font-normal">Every Time</span></h3>
-        <p className="text-gray-700 mb-2 text-lg text-center">We offer end-to-end data analytics services that turn raw data into actionable insights. <span className="font-bold">Unlock the Power of Data with Our Analytics Solutions.</span></p>
-        {/* Tabs */}
-        <div className="w-full overflow-x-auto my-8 scrollbar-hide md:scrollbar-default">
-          <div className="flex gap-3 min-w-max md:justify-center">
-            {services.map((s, i) => (
-              <button
-                key={s.key}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-base md:text-lg transition-all duration-200 ${active === i ? 'bg-gradient-main text-white shadow' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
-                onClick={() => setActive(i)}
-              >
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-main">
-                  {s.icon}
-                </span>
-                {s.label}
-              </button>
-            ))}
-          </div>
-        </div>
+    <section className="relative w-full overflow-hidden bg-black min-h-[320px] md:min-h-[500px] lg:min-h-[600px]">
+      {/* Video Background with dark overlay - covers entire section, no border radius or border */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <video
+          key={service.video}
+          src={service.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover object-center scale-105 transition-all duration-700"
+        />
+        <div className="absolute inset-0 w-full h-full bg-black/60" />
       </div>
-      {/* Tab Content */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-stretch px-4">
-        {/* Video */}
-        <div className="flex-[1.2] min-w-0 flex items-center justify-center md:justify-end md:pr-0 pr-0">
-          <video
-            src={services[active].video}
-            className="rounded-3xl border-2 border-dashed border-pink-400 w-full max-w-[420px] aspect-[4/3] object-cover shadow-lg min-h-[400px] md:min-h-[600px] max-h-[600px]"
-            style={{ minHeight: undefined, maxHeight: undefined }}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        </div>
-        {/* Details */}
-        <div className="flex-[2] min-w-0 flex flex-col items-start justify-center text-left max-w-2xl mx-auto">
-          <h4 className="text-2xl md:text-3xl font-bold text-pink-700 mb-1">{services[active].label}</h4>
-          <div className="text-md md:text-lg font-semibold text-[#DC1B36] mb-2">{services[active].summary}</div>
-          <div className="text-gray-700 mb-4">{services[active].desc}</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-4">
-            {services[active].features.map((f, idx) => (
-              <div key={f.title} className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1 shadow-sm">
-                <div className="flex items-center font-bold text-pink-600 text-base">{f.icon}{f.title}</div>
-                <div className="text-gray-600 text-sm">{f.desc}</div>
+      <div className="relative w-full z-10 h-full min-h-[320px] md:min-h-[500px] lg:min-h-[600px] flex flex-col">
+        <div className="flex flex-col items-center justify-center flex-1 h-full">
+          {/* Service Navigation Buttons (top, responsive, content-aligned on desktop, scrollable on mobile) */}
+          <div className="w-full flex justify-center mt-4 mb-2">
+            <div className="w-full">
+              <div
+                className="mx-auto max-w-4xl px-2 md:px-4"
+              >
+                <div
+                  className="flex gap-2 md:gap-4 overflow-x-auto md:overflow-visible scrollbar-hide w-full"
+                  style={{ WebkitOverflowScrolling: 'touch' }}
+                >
+                  {services.map((s, idx) => (
+                    <button
+                      key={s.key}
+                      className={`flex items-center gap-1 px-3 py-1.5 rounded-full font-medium text-xs md:text-sm transition-all duration-200 shadow-md backdrop-blur-md border border-white/30 whitespace-nowrap w-full md:w-auto justify-center ${active === idx ? 'bg-red-600 text-white scale-105' : 'bg-white/20 text-white hover:bg-white/40 hover:text-red-600'}`}
+                      onClick={() => {
+                        setDirection(idx > active ? 1 : -1);
+                        setActive(idx);
+                      }}
+                      aria-label={`Go to ${s.label}`}
+                    >
+                      {s.icon}
+                      <span className="truncate">{s.label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            ))}
+            </div>
           </div>
-          <div className="mt-2 text-xl font-bold text-gradient-main mb-2">{services[active].cta}</div>
-          <button className="mt-2 px-6 py-2 rounded-lg bg-[#DC1B36] text-white font-semibold flex items-center gap-2 shadow hover:bg-[#9B51E0] transition">
-            <span className="text-lg">📊</span> {services[active].learn}
-          </button>
+          {/* Service Logo, Title, and Sub-services (bottom left overlay) */}
+          <div className="flex-1 flex flex-col items-start justify-end h-full w-full max-w-4xl mx-auto px-4 md:px-10 pb-16 md:pb-24">
+            <div
+              className={`transition-all duration-600 ease-in-out w-full ${animating ? (direction === 1 ? 'animate-slide-in-right' : 'animate-slide-in-left') : ''}`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-main shadow-lg">{service.icon}</span>
+                <span className="text-xl md:text-2xl font-bold text-white drop-shadow-lg">{service.label}</span>
+              </div>
+              <div className="text-base md:text-lg font-medium text-white mb-4 drop-shadow-lg max-w-lg text-left opacity-90">{service.summary}</div>
+              <div className="flex flex-row flex-wrap gap-2 md:gap-4">
+                {service.features.map((f, fidx) => (
+                  <div
+                    key={f.title}
+                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 shadow text-white font-medium text-xs md:text-sm transition hover:bg-white/30 hover:text-red-600 cursor-pointer min-w-[120px] md:min-w-[150px]"
+                  >
+                    {f.icon}
+                    <span className="truncate text-left">{f.title}</span>
+                    <FaArrowRight className="w-4 h-4 ml-1 text-white group-hover:text-red-600 transition" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

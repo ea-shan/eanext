@@ -1,166 +1,72 @@
 import { useState, useRef, useEffect } from 'react';
+import { FaArrowRight, FaChartLine, FaBullseye, FaChartPie, FaBroom } from 'react-icons/fa';
 
-const sliderImages = [
-  { src: '/dashboard1.webp', alt: 'Customer Analytics', label: 'Customer Analytics', link: '#' },
-  { src: '/dashboard2.webp', alt: 'Data Management', label: 'Data Management', link: '#' },
-  { src: '/dashboard3.webp', alt: 'Marketing Analytics', label: 'Marketing Analytics', link: '#' },
-  { src: '/dashboard1.webp', alt: 'Business Intelligence', label: 'Business Intelligence', link: '#' },
-  { src: '/dashboard2.webp', alt: 'Data Visualization', label: 'Data Visualization', link: '#' },
-  { src: '/dashboard3.webp', alt: 'Data Cleansing', label: 'Data Cleansing', link: '#' },
+const services = [
+  {
+    title: 'Customer Analytics',
+    image: '/GettyImages-2170384534-1.webp',
+    icon: <FaChartLine className="w-6 h-6 text-white" />,
+    link: '/services/customer-analytics',
+  },
+  {
+    title: 'Marketing Analytics',
+    image: '/GettyImages-2065938875-1.webp',
+    icon: <FaBullseye className="w-6 h-6 text-white" />,
+    link: '/services/marketing-analytics',
+  },
+  {
+    title: 'Data Visualization',
+    image: '/gettyimages-1848417745-1024x1024-1.webp',
+    icon: <FaChartPie className="w-6 h-6 text-white" />,
+    link: '/services/data-visualization',
+  },
+  {
+    title: 'Data Cleaning',
+    image: '/GettyImages-1215205229-1.webp',
+    icon: <FaBroom className="w-6 h-6 text-white" />,
+    link: '/services/data-cleaning',
+    highlight: true,
+  },
 ];
 
-const SLIDES_TO_SHOW = 3;
-
 export default function TransformDataSection() {
-  const sliderRef = useRef();
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [currentGroup, setCurrentGroup] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const titleClass = "w-full max-w-7xl mx-auto px-4 text-3xl md:text-5xl lg:text-6xl font-semibold mb-6 leading-tight";
-
-  // Drag handlers for slider
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX - sliderRef.current.offsetLeft);
-    setScrollLeft(sliderRef.current.scrollLeft);
-  };
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 1.2;
-    sliderRef.current.scrollLeft = scrollLeft - walk;
-  };
-  const handleMouseUp = () => setIsDragging(false);
-  const handleMouseLeave = () => setIsDragging(false);
-
-  // Touch handlers
-  const handleTouchStart = (e) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].pageX - sliderRef.current.offsetLeft);
-    setScrollLeft(sliderRef.current.scrollLeft);
-  };
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 1.2;
-    sliderRef.current.scrollLeft = scrollLeft - walk;
-  };
-  const handleTouchEnd = () => setIsDragging(false);
-
-  // Animation for "AI-Powered"
-  const [aiColor, setAiColor] = useState('#9B51E0');
-  useEffect(() => {
-    const colors = ['#9B51E0', '#DC1B36', '#686b6f'];
-    let i = 0;
-    const interval = setInterval(() => {
-      i = (i + 1) % colors.length;
-      setAiColor(colors[i]);
-    }, 1200);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Auto-scroll logic (setInterval, pause on hover)
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-    let speed = 1; // px per tick
-    let intervalId;
-    if (!isDragging && !isHovered) {
-      intervalId = setInterval(() => {
-        if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 1) {
-          slider.scrollLeft = 0;
-        } else {
-          slider.scrollLeft += speed;
-        }
-        // Update current group for dots
-        const group = Math.round(slider.scrollLeft / (slider.offsetWidth / SLIDES_TO_SHOW));
-        setCurrentGroup(group);
-      }, 16); // ~60fps
-    }
-    return () => clearInterval(intervalId);
-  }, [isDragging, isHovered]);
-
-  // Dots logic
-  const numGroups = Math.ceil(sliderImages.length / SLIDES_TO_SHOW);
-  const handleDotClick = (groupIdx) => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-    const scrollTo = groupIdx * slider.offsetWidth / SLIDES_TO_SHOW;
-    slider.scrollTo({ left: scrollTo, behavior: 'smooth' });
-    setCurrentGroup(groupIdx);
-  };
-
   return (
-    <section className="py-20 bg-white text-center w-full">
-      <h2 className={titleClass}>
-        Transform Data into Actionable Insights with{' '}
-        <span
-          style={{ color: aiColor, transition: 'color 0.5s' }}
-          className="font-semibold"
-        >
-          AI-Powered
-        </span>{' '}
-        Smarter Marketing
-      </h2>
-      <p className="max-w-2xl mx-auto text-xl text-gray-700 mb-8">
-        What makes Express Analytics the right partner for your business? Businesses across the US trust us because we bring AI-powered precision, real-world expertise, and results that matter.
-      </p>
-      <div className="flex justify-center mb-12">
-        <button className="px-8 py-3 rounded-lg bg-gradient-main text-white font-semibold shadow-md flex items-center justify-center gap-2 text-lg">
-          <span className="text-white">💎</span> Schedule a Consultation
-        </button>
-      </div>
-      {/* Continuous horizontal image slider with dots */}
-      <div className="w-full max-w-7xl mx-auto px-4">
-        <div
-          ref={sliderRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide py-2 cursor-grab select-none"
-          style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={(e) => { handleMouseLeave(); setIsHovered(false); }}
-          onMouseEnter={() => setIsHovered(true)}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {sliderImages.map((img, idx) => (
+    <section className="bg-[#FAF9F6] py-16 px-4">
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+        <button className="px-4 py-1 rounded-full bg-white border border-gray-200 text-xs font-semibold mb-8">SERVICES</button>
+        <h2 className="text-4xl md:text-5xl font-semibold text-gray-700 text-center mb-12">Transform Data into Actionable Insights with <br />AI-Powered Smarter Marketing</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full mb-10">
+          {services.map((service, idx) => (
             <a
-              key={img.src + idx}
-              href={img.link}
-              className="relative flex-shrink-0 h-[100px] sm:h-[130px] md:h-[150px] w-[140px] sm:w-[180px] md:w-[220px] rounded-2xl shadow-xl bg-white group transition-transform duration-300"
-              style={{}}
-              draggable={false}
+              key={service.title}
+              href={service.link}
+              className={`relative flex flex-col rounded-3xl overflow-hidden shadow-lg group transition-all duration-300 ${service.highlight ? 'bg-red-600' : 'bg-white'}`}
+              style={{ minHeight: 420 }}
             >
+              {/* Service Image */}
               <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover rounded-2xl z-0"
-                draggable={false}
+                src={service.image}
+                alt={service.title}
+                className="w-full h-64 object-cover object-center"
               />
-              <span className="absolute bottom-0 left-0 right-0 z-10 w-full text-white text-base md:text-lg font-bold px-2 py-1 bg-black/60 rounded-b-2xl text-center group-hover:bg-gradient-main group-hover:text-white transition-colors duration-300 cursor-pointer">
-                {img.label}
-              </span>
+              {/* Red Icon */}
+              <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center z-10">
+                {service.icon}
+              </div>
+              {/* Card Content */}
+              <div className={`flex-1 flex flex-col justify-end p-6 ${service.highlight ? 'bg-red-600' : 'bg-white'}`}>
+                <div className={`text-lg font-semibold mb-2 ${service.highlight ? 'text-white' : 'text-gray-900'}`}>{service.title}</div>
+                <div className="flex items-center justify-between">
+                  <span></span>
+                  <span className={`inline-flex items-center justify-center w-10 h-10 rounded-full ${service.highlight ? 'bg-black' : 'bg-gray-100'} transition-all duration-200`}>
+                    <FaArrowRight className={`${service.highlight ? 'text-white' : 'text-black'} text-lg`} />
+                  </span>
+                </div>
+              </div>
             </a>
           ))}
         </div>
-        {/* Slider dots */}
-        <div className="flex justify-center mt-8 gap-2 w-full items-center">
-          {Array.from({ length: numGroups }).map((_, idx) => (
-            <button
-              key={idx}
-              className={`h-2 w-8 rounded-full transition-all duration-300 ${idx === currentGroup ? 'bg-gradient-main' : 'bg-gray-300'}`}
-              onClick={() => handleDotClick(idx)}
-              aria-label={`Go to slide group ${idx + 1}`}
-              style={{ outline: 'none', border: 'none' }}
-            />
-          ))}
-        </div>
+        <button className="mt-4 px-8 py-3 rounded-full bg-red-600 text-white font-semibold text-lg shadow-lg hover:bg-red-700 transition">All Services</button>
       </div>
     </section>
   );

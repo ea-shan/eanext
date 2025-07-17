@@ -43,7 +43,7 @@ export default function ShowcaseVideoSection() {
         playsInline
       />
       {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#7b1b2e]/90 via-[#9B51E0]/80 to-[#2d0b16]/90 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#7b1b2e]/90 via-[#484848]/80 to-[#2d0b16]/90 z-10" />
       <div className="relative z-20 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
         {/* Left: Title, bars, button, stats */}
         <div className="flex-1 text-white flex flex-col justify-center items-start max-w-xl">
@@ -64,8 +64,8 @@ export default function ShowcaseVideoSection() {
               </div>
             ))}
           </div>
-          <button className="flex items-center px-6 py-3 rounded-lg bg-gradient-main text-white font-semibold shadow-md hover:from-[#DC1B36] hover:to-[#9B51E0] transition mb-8">
-            <span className="mr-2">💎</span> Schedule a Consultation
+          <button className="mt-4 px-8 py-3 rounded-full bg-red-600 text-white font-semibold text-lg shadow-lg hover:bg-red-700 transition">
+            <span className="mr-2"></span> Let's Connect
           </button>
           <div className="flex gap-12 mt-4">
             <div>

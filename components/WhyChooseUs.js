@@ -44,7 +44,7 @@ export default function WhyChooseUs() {
           {features.map((f, i) => (
             <div key={f.key}>
               <button
-                className={`w-full flex items-center justify-between px-6 py-4 rounded-t-xl font-semibold text-lg md:text-xl transition-all duration-200 focus:outline-none ${open === i ? 'bg-gradient-to-r from-pink-600 to-purple-500 text-white' : 'bg-gradient-to-r from-pink-400 to-purple-400 text-white hover:from-pink-500 hover:to-purple-500'}`}
+                className={`w-full flex items-center justify-between px-6 py-4 rounded-t-xl font-semibold text-lg md:text-xl transition-all duration-200 focus:outline-none ${open === i ? 'bg-gradient-to-r from-red-600 to-purple-500 text-white' : 'bg-gradient-to-r from-red-400 to-purple-400 text-white hover:from-red-500 hover:to-purple-500'}`}
                 onClick={() => setOpen(open === i ? null : i)}
                 aria-expanded={open === i}
               >

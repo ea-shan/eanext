@@ -110,7 +110,6 @@ export default function ResourcesCarousel() {
         <span className="text-2xl text-[#DC1B36]">&#x25C7;</span>
       </div>
       <h3 className="text-2xl md:text-3xl font-bold mb-2">A Plethora of Analytics Insights at Your Fingertips</h3>
-      <p className="text-gray-600 mb-8 max-w-2xl mx-auto">Explore our rich library of knowledge designed to empower data-driven professionals and businesses. Dive into expert-written blogs, industry updates, and best practices that cover the full spectrum of analytics, AI, and business intelligence. Whether you’re just starting or scaling advanced analytics capabilities, our resources are curated to fuel your growth and innovation journey.</p>
       <div className="max-w-7xl mx-auto px-4 relative">
         {/* Arrows */}
         <button
@@ -179,10 +178,10 @@ export default function ResourcesCarousel() {
       <div className="w-full flex justify-center mt-16">
         <div className="w-full max-w-7xl mx-auto px-4">
           <div className="bg-[#18181b] rounded-3xl py-14 px-4 md:px-16 flex flex-col items-center justify-center shadow-2xl animate-fadeInUp">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 text-center">Analyze. Visualize. Take Actions.</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 text-center">Analyze. Visualize. Take Actions.</h2>
             <h3 className="text-2xl md:text-3xl font-bold mb-8 text-gradient-main text-center">Unlock the Power of Data with Our Analytics Solutions.</h3>
-            <button className="flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-main text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform">
-              <span className="text-2xl">💎</span> Schedule a Consultation
+            <button className="bg-red-600 text-white rounded-full px-8 py-3 font-semibold text-base shadow hover:bg-red-700 transition flex items-center gap-2">
+              <span className="text-2xl"></span> Free Consultation
             </button>
           </div>
         </div>

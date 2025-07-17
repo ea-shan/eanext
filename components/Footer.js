@@ -111,7 +111,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-900 text-white py-8 px-4 mt-16 rounded-t-3xl shadow-lg font-sans relative">
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* Company Info */}
         <div>
           <div className="flex items-center mb-2">
@@ -119,8 +119,17 @@ export default function Footer() {
             <span className="font-semibold text-lg" style={{ color: 'white' }}>express <span style={{ color: 'white' }}>analytics</span></span>
           </div>
           <div className="text-sm text-gray-400 mb-4">AI-Powered Smarter Marketing</div>
+          <div className="text-xs text-gray-300 mb-2">
+            <div className="font-semibold text-white mb-1">Corporate Headquarters (USA)</div>
+            300, Spectrum Centre Drive Suite 400,<br />
+            Irvine, California – 92618
+          </div>
+          <div className="flex flex-col gap-1 mb-2">
+            <a href="https://www.google.com/maps?q=300+Spectrum+Centre+Drive+Suite+400,+Irvine,+California+92618" target="_blank" rel="noopener noreferrer" className="text-xs text-pink-400 hover:underline">Get Directions</a>
+            <Link href="/contact-us" className="text-xs text-pink-400 hover:underline">Contact Us</Link>
+          </div>
         </div>
-        {/* Navigation */}
+        {/* Company Menu */}
         <div>
           <div className="font-semibold mb-2">Company</div>
           <ul className="text-sm text-gray-400 space-y-1">
@@ -132,6 +141,18 @@ export default function Footer() {
             <li><Link href="/write-for-us" className="hover:text-pink-400 transition">Write for Us</Link></li>
           </ul>
         </div>
+        {/* Solutions Menu */}
+        <div>
+          <div className="font-semibold mb-2">Solutions</div>
+          <ul className="text-sm text-gray-400 space-y-1">
+            <li><Link href="/solutions/voice-of-customer-analytics" className="hover:text-pink-400 transition">Voice of Customer Analytics</Link></li>
+            <li><Link href="/solutions/multi-touch-attribution" className="hover:text-pink-400 transition">Multi-Touch Attribution</Link></li>
+            <li><Link href="/solutions/customer-lifetime-value" className="hover:text-pink-400 transition">Customer Lifetime Value</Link></li>
+            <li><Link href="/solutions/marketing-mix-modeling-analytics" className="hover:text-pink-400 transition">Marketing Mix Modeling</Link></li>
+            <li><Link href="/solutions/recommendation-engine" className="hover:text-pink-400 transition">Recommendation Engine</Link></li>
+          </ul>
+        </div>
+        {/* Services Menu */}
         <div>
           <div className="font-semibold mb-2">Services</div>
           <ul className="text-sm text-gray-400 space-y-1">
@@ -151,10 +172,10 @@ export default function Footer() {
             <label className="flex items-center text-xs text-gray-400">
               <input type="checkbox" className="mr-2" /> I accept the privacy policy
             </label>
-            <button type="submit" className="mt-2 px-4 py-2 rounded bg-pink-600 hover:bg-pink-700 text-white font-semibold">Subscribe</button>
+            <button type="submit" className="mt-2 px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-semibold">Subscribe</button>
           </form>
           <div className="mt-4 text-xs text-gray-400">
-            �� Call +1 (618) 224 3573<br />
+            Call +1 (618) 224 3573<br />
             Email: info@expressanalytics.net
           </div>
         </div>
@@ -170,7 +191,7 @@ export default function Footer() {
       {/* Move to Top Button - always visible, responsive */}
       <button
         onClick={scrollToTop}
-        className="fixed z-50 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all flex items-center justify-center
+        className="fixed z-50 bg-red-600 text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all flex items-center justify-center
           bottom-4 right-4 md:bottom-8 md:right-8
           left-1/2 md:left-auto transform md:translate-x-0 -translate-x-1/2 md:translate-x-0"
         aria-label="Move to top"
