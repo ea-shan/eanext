@@ -1,8 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
-import { FaPhoneAlt, FaChartBar, FaBook, FaInfoCircle, FaHeadset, FaChevronDown, FaUsers, FaCogs, FaChartPie, FaPaintBrush, FaDatabase, FaArrowRight } from 'react-icons/fa';
+import { FaPhoneAlt, FaChartBar, FaBook, FaInfoCircle, FaHeadset, FaChevronDown, FaUsers, FaCogs, FaChartPie, FaPaintBrush, FaDatabase, FaArrowRight, FaTimes, FaMicrophone } from 'react-icons/fa';
+import Vapi from '@vapi-ai/web';
 
 const menu = [
   {
@@ -76,6 +77,63 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openSub, setOpenSub] = useState({}); // { [colIdx-subIdx]: true }
   const closeTimeout = useRef();
+  const [vapiOpen, setVapiOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [callActive, setCallActive] = useState(false);
+  const [error, setError] = useState('');
+  const vapiApiKey = process.env.NEXT_PUBLIC_VAPI_API_KEY;
+  const vapiAssistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
+  const vapiRef = useRef();
+
+  useEffect(() => {
+    if (!vapiRef.current && vapiApiKey) {
+      vapiRef.current = new Vapi({ apiKey: vapiApiKey });
+    }
+  }, [vapiApiKey]);
+
+  const handleStartCall = useCallback(() => {
+    setError('');
+    setTranscript('');
+    setCallActive(true);
+    setIsListening(true);
+    if (vapiRef.current && vapiAssistantId) {
+      vapiRef.current.start({ assistant: vapiAssistantId });
+      vapiRef.current.on('transcript', (data) => {
+        setTranscript((prev) => prev + (prev ? '\n' : '') + data.transcript);
+      });
+      vapiRef.current.on('error', (err) => {
+        setError('Voice AI error: ' + (err?.message || 'Unknown error'));
+        setCallActive(false);
+        setIsListening(false);
+      });
+      vapiRef.current.on('end', () => {
+        setCallActive(false);
+        setIsListening(false);
+      });
+    } else {
+      setError('Vapi not initialized or Assistant ID missing.');
+      setCallActive(false);
+      setIsListening(false);
+    }
+  }, [vapiAssistantId]);
+
+  const handleEndCall = useCallback(() => {
+    if (vapiRef.current) {
+      vapiRef.current.stop();
+    }
+    setCallActive(false);
+    setIsListening(false);
+    setTranscript('');
+  }, []);
+
+  const closeVapi = () => {
+    setVapiOpen(false);
+    setCallActive(false);
+    setIsListening(false);
+    setTranscript('');
+    setError('');
+  };
 
   // Helper to handle hover with delay for smooth submenu
   const handleMenuEnter = (idx) => {
@@ -146,6 +204,11 @@ export default function Header() {
                       <div className="flex flex-col justify-between bg-black rounded-l-xl p-6 min-w-[320px] max-w-[340px] h-full" style={{ minHeight: '340px' }}>
                         <div>
                           <div className="text-lg font-semibold text-red-500 mb-4">Fresh Perspectives, Unmatched Solutions</div>
+                          {/* Vapi Agent Support Icon and Text */}
+                          <div className="flex flex-col items-center mb-6 mt-2 cursor-pointer group" onClick={() => setVapiOpen(true)}>
+                            <FaHeadset className="w-8 h-8 text-white animate-zoom-in-out group-hover:scale-110 transition-transform" />
+                            <span className="text-xs mt-2 font-semibold text-white">Agent Support</span>
+                          </div>
                         </div>
                         <div className="mt-auto">
                           <Link href="/solutions" className="flex items-center gap-1 text-white font-semibold text-base mt-8 group hover:underline">
@@ -311,6 +374,39 @@ export default function Header() {
           </div>
         )}
       </header>
+      {vapiOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative text-left">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+              onClick={closeVapi}
+              aria-label="Close"
+            >
+              <FaTimes />
+            </button>
+            <div className="flex items-center gap-3 mb-4">
+              <FaHeadset className="text-pink-600 text-2xl" />
+              <span className="font-bold text-lg text-gray-900">Express Analytics Voice Support</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={callActive ? handleEndCall : handleStartCall}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white transition
+                  ${callActive ? 'bg-red-600 hover:bg-red-700' : 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-purple-600 hover:to-pink-600'}`}
+                disabled={isListening && !callActive}
+              >
+                <FaMicrophone /> {callActive ? 'End Call' : 'Start Voice Call'}
+              </button>
+              <div className="mt-2 p-3 bg-gray-100 rounded-lg min-h-[60px] text-gray-800 text-sm font-mono whitespace-pre-wrap">
+                {error ? (
+                  <span className="text-red-600">{error}</span>
+                ) : callActive ? (transcript || 'Listening...') : 'Click "Start Voice Call" to begin.'}
+              </div>
+            </div>
+            <div className="text-xs text-gray-400 mt-2">Real-time transcript will appear here.</div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
