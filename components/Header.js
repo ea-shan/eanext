@@ -46,7 +46,7 @@ const menu = [
             icon: <FaPaintBrush className="inline-block mr-1" />,
             label: 'Data Visualization',
             sub: [
-              'Data Reporting and Visualisation',
+              'Data Reporting & Visualisation',
             ],
           },
           { icon: <FaDatabase className="inline-block mr-1" />, label: 'Business Intelligence' },
@@ -195,32 +195,15 @@ export default function Header() {
                   {/* Mega Menu */}
                   {item.mega && openMenu === idx && (
                     <div
-                      className="absolute left-0 top-full mt-2 bg-white rounded-xl shadow-2xl p-0 flex gap-0 min-w-[1000px] z-50 transition-all duration-200 opacity-100 visible animate-fade-in"
+                      className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-full max-w-screen-lg min-w-[900px] bg-white rounded-xl shadow-2xl p-0 flex flex-nowrap overflow-x-auto z-50 transition-all duration-200 opacity-100 visible animate-fade-in"
                       onMouseEnter={() => handleMenuEnter(idx)}
                       onMouseLeave={handleMenuLeave}
                       style={{ pointerEvents: 'auto' }}
                     >
-                      {/* Left: Dark Card */}
-                      <div className="flex flex-col justify-between bg-black rounded-l-xl p-6 min-w-[320px] max-w-[340px] h-full" style={{ minHeight: '340px' }}>
-                        <div>
-                          <div className="text-lg font-semibold text-red-500 mb-4">Fresh Perspectives, Unmatched Solutions</div>
-                          {/* Vapi Agent Support Icon and Text */}
-                          <div className="flex flex-col items-center mb-6 mt-2 cursor-pointer group" onClick={() => setVapiOpen(true)}>
-                            <FaHeadset className="w-8 h-8 text-white animate-zoom-in-out group-hover:scale-110 transition-transform" />
-                            <span className="text-xs mt-2 font-semibold text-white">Agent Support</span>
-                          </div>
-                        </div>
-                        <div className="mt-auto">
-                          <Link href="/solutions" className="flex items-center gap-1 text-white font-semibold text-base mt-8 group hover:underline">
-                            View All <span className="ml-1 inline-block bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-white"><FaArrowRight className="text-xs" /></span>
-                          </Link>
-                        </div>
-                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-red-600 rounded-br-xl" style={{ clipPath: 'polygon(100% 0, 0 100%, 100% 100%)', zIndex: 1 }} />
-                      </div>
-                      {/* Right: Fluid Grid Columns */}
-                      <div className="flex-1 flex flex-row gap-12 p-8 bg-white rounded-r-xl min-w-[660px]">
+                      {/* Left: Fluid Grid Columns (Menu Items with Red Corner) */}
+                      <div className="flex-1 flex flex-col md:flex-row gap-6 p-6 bg-white rounded-l-xl min-w-[220px]">
                         {/* Analytics Solutions */}
-                        <div className="flex-1 min-w-[260px]">
+                        <div className="flex-1 min-w-[220px]">
                           <div className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">Analytics Solutions</div>
                           <ul className="space-y-2">
                             {item.mega[0].items.map((sub, sidx) => (
@@ -231,7 +214,7 @@ export default function Header() {
                           </ul>
                         </div>
                         {/* Analytics Services */}
-                        <div className="flex-1 min-w-[260px]">
+                        <div className="flex-1 min-w-[220px]">
                           <div className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">Analytics Services</div>
                           <ul className="space-y-2">
                             {item.mega[1].items.map((sub, sidx) => {
@@ -263,6 +246,23 @@ export default function Header() {
                             })}
                           </ul>
                         </div>
+                      </div>
+                      {/* Right: Dark Card (Agent Support) */}
+                      <div className="relative flex flex-col justify-between bg-black rounded-r-xl p-6 min-w-[260px] max-w-[320px] h-full mt-4 md:mt-0" style={{ minHeight: '340px' }}>
+                        <div>
+                          <div className="text-lg font-semibold text-red-500 mb-4">Fresh Perspectives, Unmatched Solutions</div>
+                          {/* Vapi Agent Support Icon and Text */}
+                          <div className="flex flex-col items-center mb-6 mt-2 cursor-pointer group" onClick={() => setVapiOpen(true)}>
+                            <FaHeadset className="w-8 h-8 text-white animate-zoom-in-out group-hover:scale-110 transition-transform" />
+                            <span className="text-xs mt-2 font-semibold text-white">Agent Support</span>
+                          </div>
+                        </div>
+                        <div className="mt-auto">
+                          <Link href="/solutions" className="flex items-center gap-1 text-white font-semibold text-base mt-8 group hover:underline">
+                            View All <span className="ml-1 inline-block bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-white"><FaArrowRight className="text-xs" /></span>
+                          </Link>
+                        </div>
+                        <div className="absolute bottom-0 right-0 w-20 h-20 bg-red-600 rounded-br-xl" style={{ clipPath: 'polygon(100% 0, 0 100%, 100% 100%)', zIndex: 1 }} />
                       </div>
                     </div>
                   )}
