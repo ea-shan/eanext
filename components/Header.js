@@ -310,45 +310,72 @@ export default function Header() {
         {/* Mobile Menu */}
         {mobileOpen && (
           <div className="lg:hidden bg-white shadow-2xl rounded-b-xl px-6 py-4 animate-fade-in">
-            <ul className="flex flex-col space-y-4 text-base font-medium text-gray-700">
+            <ul className="flex flex-col space-y-2 text-base font-medium text-gray-700">
               {menu.map((item, idx) => (
-                <li key={item.label} className="flex flex-col">
-                  {item.label === 'Contact Us' ? (
-                    <Link href="/contact-us" className="flex items-center">
-                      {item.icon} {item.label}
-                    </Link>
-                  ) : (
-                    <span className="flex items-center">
-                      {item.icon} {item.label}
-                      {(item.mega || item.submenu) && <FaChevronDown className="ml-1 text-xs" />}
-                    </span>
-                  )}
+                <li key={item.label} className="flex flex-col w-full">
+                  <div className="flex items-center justify-between w-full">
+                    {item.label === 'Contact Us' ? (
+                      <Link href="/contact-us" className="flex items-center w-full">
+                        {item.icon} {item.label}
+                      </Link>
+                    ) : (
+                      <span className="flex items-center w-full">
+                        {item.icon} {item.label}
+                        {(item.mega || item.submenu) && (
+                          <span
+                            className={`ml-auto text-xs text-gray-400 transition-transform duration-200 ${openMenu === idx ? 'rotate-180' : ''}`}
+                            onClick={e => { e.stopPropagation(); setOpenMenu(openMenu === idx ? null : idx); }}
+                            style={{ cursor: 'pointer', marginLeft: 'auto' }}
+                          >
+                            <FaChevronDown />
+                          </span>
+                        )}
+                      </span>
+                    )}
+                  </div>
                   {/* Mobile Mega Menu */}
-                  {item.mega && (
-                    <div className="pl-4 mt-2">
-                      {item.mega.map((col) => (
+                  {item.mega && openMenu === idx && (
+                    <div className="pl-4 mt-2 flex flex-col gap-4">
+                      {item.mega.map((col, cidx) => (
                         <div key={col.heading} className="mb-2">
                           <h4 className="text-red-600 font-bold text-base mb-1">{col.heading}</h4>
                           <ul className="space-y-1">
-                            {col.items.map((sub) => (
-                              <li key={sub.label} className="flex flex-col">
-                                <span className="flex items-center font-medium text-gray-800">{sub.icon} {sub.label}</span>
-                                {sub.sub && (
-                                  <ul className="ml-6 mt-1 text-sm text-gray-600 space-y-1">
-                                    {sub.sub.map((sublabel) => (
-                                      <li key={sublabel} className="hover:text-red-600 cursor-pointer">{sublabel}</li>
-                                    ))}
-                                  </ul>
-                                )}
-                              </li>
-                            ))}
+                            {col.items.map((sub, sidx) => {
+                              const hasSub = !!sub.sub;
+                              const subKey = `${cidx}-${sidx}`;
+                              return (
+                                <li key={sub.label} className="flex flex-col w-full">
+                                  <div className="flex items-center w-full">
+                                    <span className="flex items-center w-full">
+                                      {sub.icon} {sub.label}
+                                    </span>
+                                    {hasSub && (
+                                      <span
+                                        className={`ml-auto text-xs text-gray-400 transition-transform duration-200 ${openSub[subKey] ? 'rotate-180' : ''}`}
+                                        onClick={e => { e.stopPropagation(); handleSubToggle(cidx, sidx); }}
+                                        style={{ cursor: 'pointer', marginLeft: 'auto' }}
+                                      >
+                                        <FaChevronDown />
+                                      </span>
+                                    )}
+                                  </div>
+                                  {hasSub && openSub[subKey] && (
+                                    <ul className="ml-4 mt-1 text-sm text-gray-600 space-y-1 bg-gray-50 rounded shadow border border-gray-100 py-2 px-3 z-10">
+                                      {sub.sub.map((sublabel) => (
+                                        <li key={sublabel} className="hover:text-red-600 cursor-pointer whitespace-nowrap">{sublabel}</li>
+                                      ))}
+                                    </ul>
+                                  )}
+                                </li>
+                              );
+                            })}
                           </ul>
                         </div>
                       ))}
                     </div>
                   )}
                   {/* Mobile Submenu */}
-                  {item.submenu && (
+                  {item.submenu && openMenu === idx && (
                     <ul className="pl-4 mt-2 space-y-1">
                       {item.label === 'Who we are'
                         ? [
