@@ -187,7 +187,7 @@ export default function ContactUs() {
         <section className="w-full bg-white pt-16 pb-8 px-4 text-left flex flex-col md:flex-row md:items-start md:justify-between max-w-7xl mx-auto">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-pink-700 font-bold text-lg uppercase mb-2 tracking-widest">Connect with us</h2>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">Schedule a Consultation</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Get a Free Consultation</h1>
             <p className="text-lg text-gray-700 mb-4">{address.line1}</p>
             <div className="flex flex-col sm:flex-row gap-6 mt-6">
               <div className="flex items-center gap-3">
