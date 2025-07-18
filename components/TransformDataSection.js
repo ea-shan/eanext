@@ -32,7 +32,7 @@ export default function TransformDataSection() {
   return (
     <section className="bg-[#FAF9F6] py-16 px-4">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <button className="px-4 py-1 rounded-full bg-white border border-gray-200 text-xs font-semibold mb-8">SERVICES</button>
+        <span className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">ANALYTICS SERVICES</span>
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
           <span className="text-black">Transform Data into Actionable Insights with</span><br />
           <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-400 bg-clip-text text-transparent">AI-Powered Smarter Marketing</span>

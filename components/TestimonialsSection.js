@@ -51,9 +51,9 @@ export default function TestimonialsSection() {
         {/* Left: Title & Actions */}
         <div className="flex-1 flex flex-col justify-center items-start md:pl-8">
           <span className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">TESTIMONIALS</span>
-          <h2 className="text-3xl md:text-5xl font-light mb-6 text-left leading-tight">
-            Client <span className="text-red-600 font-semibold">Experiences</span> That<br />
-            Speak for Themselves
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-left leading-tight">
+            Client <span className="font-semibold ">Experiences</span> That<br />
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-400 bg-clip-text text-transparent">Speak for Themselves</span>
           </h2>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-6">
             <a href="#" className="bg-red-600 text-white rounded-full px-8 py-3 font-semibold text-base shadow hover:bg-red-700 transition flex items-center gap-2">

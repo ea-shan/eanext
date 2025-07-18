@@ -317,7 +317,7 @@ export default function CustomerAnalytics() {
               <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
                 <div className="rounded-3xl overflow-hidden shadow-xl" style={{ boxShadow: '0 8px 32px 0 rgba(155,81,224,0.10)' }}>
                   <div style={{ background: 'linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%)', padding: 4, borderRadius: 24 }}>
-                    <img src="/customer-segmentation.webp" alt="Customer Profiling Analytics" className="block w-full h-auto rounded-2xl" />
+                    <img src="/express-analytics.webp" alt="Customer Profiling Analytics" className="block w-full h-auto rounded-2xl" />
                   </div>
                 </div>
               </div>
@@ -332,7 +332,7 @@ export default function CustomerAnalytics() {
               <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
                 <div className="rounded-3xl overflow-hidden shadow-xl" style={{ boxShadow: '0 8px 32px 0 rgba(155,81,224,0.10)' }}>
                   <div style={{ background: 'linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%)', padding: 4, borderRadius: 24 }}>
-                    <img src="/customer-segmentation.webp" alt="Customer Segmentation" className="block w-full h-auto rounded-2xl" />
+                    <img src="/customer-segmentation2.webp" alt="Customer Segmentation" className="block w-full h-auto rounded-2xl" />
                   </div>
                 </div>
               </div>
@@ -347,7 +347,7 @@ export default function CustomerAnalytics() {
               <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
                 <div className="rounded-3xl overflow-hidden shadow-xl" style={{ boxShadow: '0 8px 32px 0 rgba(155,81,224,0.10)' }}>
                   <div style={{ background: 'linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%)', padding: 4, borderRadius: 24 }}>
-                    <img src="/behavioral-analysis.webp" alt="Behavioral Analysis" className="block w-full h-auto rounded-2xl" />
+                    <img src="/behaviour-analysis1.webp" alt="Behavioral Analysis" className="block w-full h-auto rounded-2xl" />
                   </div>
                 </div>
               </div>

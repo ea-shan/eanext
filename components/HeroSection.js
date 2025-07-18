@@ -393,11 +393,11 @@ export default function HeroSection() {
     <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center py-16 px-4 gap-8">
       {/* Left Side */}
       <div className="flex-1">
-        <button className="px-4 py-1 rounded-full bg-white border border-gray-200 text-xs font-semibold mb-8 uppercase">From Chaos to Clarity</button>
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-          <span className="text-black">Is Your Business</span><br />
-          <span className="text-black">Struggling to Make</span><br />
-          <span className="bg-gradient-to-r from-red-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">Data-Driven Decisions?</span>
+        <span className="inline-block mb-4 px-5 py-4 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">FROM CHAOS TO CLARITY</span>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-relaxed">
+          <span className="text-black block mb-2">Is Your Business</span>
+          <span className="text-black block mb-2">Struggling to Make</span>
+          <span className="bg-gradient-to-r from-red-600 via-purple-600 to-blue-600 bg-clip-text text-transparent block">Data-Driven Decisions?</span>
         </h1>
         <p className="text-gray-700 text-lg mb-6">
           We convert raw data into actionable insights, enabling enterprises and organizations to make smarter decisions and drive sustainable growth with AI-powered solutions in data management, marketing analytics, and business intelligence.
