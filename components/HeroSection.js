@@ -393,17 +393,17 @@ export default function HeroSection() {
     <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center py-16 px-4 gap-8">
       {/* Left Side */}
       <div className="flex-1">
-        <h5 className="text-sm font-bold text-red-700 mb-2 uppercase">From Chaos to Clarity</h5>
-        <h1 className="text-4xl md:text-5xl font-semibold text-gray-700 mb-4 leading-tight">
-          Is Your Business<br />
-          Struggling to Make<br />
-          Data-Driven Decisions?
+        <button className="px-4 py-1 rounded-full bg-white border border-gray-200 text-xs font-semibold mb-8 uppercase">From Chaos to Clarity</button>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+          <span className="text-black">Is Your Business</span><br />
+          <span className="text-black">Struggling to Make</span><br />
+          <span className="bg-gradient-to-r from-red-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">Data-Driven Decisions?</span>
         </h1>
         <p className="text-gray-700 text-lg mb-6">
           We convert raw data into actionable insights, enabling enterprises and organizations to make smarter decisions and drive sustainable growth with AI-powered solutions in data management, marketing analytics, and business intelligence.
         </p>
         <button className="mt-4 px-8 py-3 rounded-full bg-red-600 text-white font-semibold text-lg shadow-lg hover:bg-red-700 transition">
-          <span className="mr-2 text-white"></span> Free Consultation
+          <span className="mr-2 text-white"></span> Schedule a Consultation
         </button>
       </div>
       {/* Right Side: Slider */}

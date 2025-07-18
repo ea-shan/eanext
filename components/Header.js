@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
+import Script from 'next/script';
 import { FaPhoneAlt, FaChartBar, FaBook, FaInfoCircle, FaHeadset, FaChevronDown, FaUsers, FaCogs, FaChartPie, FaPaintBrush, FaDatabase, FaArrowRight, FaTimes, FaMicrophone } from 'react-icons/fa';
 import Vapi from '@vapi-ai/web';
 
@@ -29,28 +29,54 @@ const menu = [
               <Link href="/services/customer-analytics" className="hover:text-red-600">Customer Analytics</Link>
             ),
             sub: [
-              'Customer Segmentation',
-              'Lookalike Modeling',
-              'Sentiment Analysis',
+              (
+                <Link href="/services/customer-analytics/customer-segmentation" className="hover:text-red-600">Customer Segmentation</Link>
+              ),
+              (
+                <Link href="/services/customer-analytics/lookalike-modeling" className="hover:text-red-600">Lookalike Modeling</Link>
+              ),
+              (
+                <Link href="/services/customer-analytics/sentiment-analysis" className="hover:text-red-600">Sentiment Analysis</Link>
+              ),
             ],
           },
           {
             icon: <FaChartBar className="inline-block mr-1" />,
-            label: 'Marketing Analytics',
+            label: (
+              <Link href="/services/marketing-analytics" className="hover:text-red-600">Marketing Analytics</Link>
+            ),
             sub: [
-              'Predictive Analytics',
-              'Churn Prediction',
+              (
+                <Link href="/services/marketing-analytics/predictive-analytics-for-strategic-decisions" className="hover:text-red-600">Predictive Analytics</Link>
+              ),
+              (
+                <Link href="/services/marketing-analytics/churn-prediction-model" className="hover:text-red-600">Churn Prediction</Link>
+              ),
             ],
           },
           {
             icon: <FaPaintBrush className="inline-block mr-1" />,
-            label: 'Data Visualization',
+            label: (
+              <Link href="/services/data-visualization" className="hover:text-red-600">Data Visualization</Link>
+            ),
             sub: [
-              'Data Reporting & Visualisation',
+              (
+                <Link href="/services/data-visualization/data-reporting-and-visualization" className="hover:text-red-600">Data Reporting & Visualization</Link>
+              ),
             ],
           },
-          { icon: <FaDatabase className="inline-block mr-1" />, label: 'Business Intelligence' },
-          { icon: <FaCogs className="inline-block mr-1" />, label: 'Data Cleansing' },
+          {
+            icon: <FaDatabase className="inline-block mr-1" />,
+            label: (
+              <Link href="/services/business-intelligence-analytics-services" className="hover:text-red-600">Business Intelligence</Link>
+            ),
+          },
+          {
+            icon: <FaCogs className="inline-block mr-1" />,
+            label: (
+              <Link href="/services/data-cleaning-services" className="hover:text-red-600">Data Cleansing</Link>
+            ),
+          },
         ],
       },
     ],
@@ -58,7 +84,7 @@ const menu = [
   {
     label: 'Resources',
     icon: <FaBook className="inline-block mr-1 text-red-600" />,
-    submenu: ['Case Studies', 'eBook', 'White Papers', 'Blogs'],
+    submenu: ['Case Studies', 'eBook', 'White Papers', 'Webinars', 'Blogs'],
   },
   {
     label: 'Who we are',
@@ -151,18 +177,16 @@ export default function Header() {
 
   return (
     <>
-      <Head>
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6D5DMTZ4J"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-S6D5DMTZ4J');
-          `,
-        }} />
-      </Head>
+      {/* Google tag (gtag.js) */}
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-S6D5DMTZ4J" strategy="afterInteractive" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-S6D5DMTZ4J');
+        `}
+      </Script>
       <header className="bg-white shadow-md sticky top-0 z-40 font-sans">
         <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-4">
           {/* Logo */}
@@ -283,11 +307,19 @@ export default function Header() {
                             <li key="Work with us"><Link href="/careers" className="hover:text-red-600">Work with us</Link></li>,
                             <li key="Write for us"><Link href="/write-for-us" className="hover:text-red-600">Write for us</Link></li>,
                           ]
-                          : item.submenu.map((sublabel) => (
-                            sublabel === 'Contact Us'
-                              ? <li key={sublabel}><Link href="/contact-us" className="hover:text-red-600">Contact Us</Link></li>
-                              : <li key={sublabel} className="hover:text-red-600 cursor-pointer">{sublabel}</li>
-                          ))}
+                          : item.label === 'Resources'
+                            ? [
+                              <li key="Case Studies"><Link href="/resources/case-studies" className="hover:text-red-600">Case Studies</Link></li>,
+                              <li key="eBook"><Link href="/resources/ebook" className="hover:text-red-600">eBook</Link></li>,
+                              <li key="White Papers"><Link href="/resources/whitepapers" className="hover:text-red-600">White Papers</Link></li>,
+                              <li key="Webinars"><Link href="/resources/webinars" className="hover:text-red-600">Webinars</Link></li>,
+                              <li key="Blogs"><Link href="/resources/blogs" className="hover:text-red-600">Blogs</Link></li>,
+                            ]
+                            : item.submenu.map((sublabel) => (
+                              sublabel === 'Contact Us'
+                                ? <li key={sublabel}><Link href="/contact-us" className="hover:text-red-600">Contact Us</Link></li>
+                                : <li key={sublabel} className="hover:text-red-600 cursor-pointer">{sublabel}</li>
+                            ))}
                       </ul>
                     </div>
                   )}
@@ -385,11 +417,19 @@ export default function Header() {
                           <li key="Work with us"><Link href="/careers" className="hover:text-red-600">Work with us</Link></li>,
                           <li key="Write for us"><Link href="/write-for-us" className="hover:text-red-600">Write for us</Link></li>,
                         ]
-                        : item.submenu.map((sublabel) => (
-                          sublabel === 'Contact Us'
-                            ? <li key={sublabel}><Link href="/contact-us" className="hover:text-red-600">Contact Us</Link></li>
-                            : <li key={sublabel} className="hover:text-red-600 cursor-pointer">{sublabel}</li>
-                        ))}
+                        : item.label === 'Resources'
+                          ? [
+                            <li key="Case Studies"><Link href="/resources/case-studies" className="hover:text-red-600">Case Studies</Link></li>,
+                            <li key="eBook"><Link href="/resources/ebook" className="hover:text-red-600">eBook</Link></li>,
+                            <li key="White Papers"><Link href="/resources/whitepapers" className="hover:text-red-600">White Papers</Link></li>,
+                            <li key="Webinars"><Link href="/resources/webinars" className="hover:text-red-600">Webinars</Link></li>,
+                            <li key="Blogs"><Link href="/resources/blogs" className="hover:text-red-600">Blogs</Link></li>,
+                          ]
+                          : item.submenu.map((sublabel) => (
+                            sublabel === 'Contact Us'
+                              ? <li key={sublabel}><Link href="/contact-us" className="hover:text-red-600">Contact Us</Link></li>
+                              : <li key={sublabel} className="hover:text-red-600 cursor-pointer">{sublabel}</li>
+                          ))}
                     </ul>
                   )}
                 </li>
