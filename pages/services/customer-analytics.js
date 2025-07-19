@@ -322,7 +322,7 @@ export default function CustomerAnalytics() {
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="mb-2 text-sm font-semibold tracking-widest text-gray-900 uppercase opacity-80">Customer Profiling Analytics</div>
+                <div className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">Customer Profiling Analytics</div>
                 <div className="mb-2 text-2xl md:text-3xl font-semibold" style={{ background: 'linear-gradient(90deg, #DC1B36, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textFillColor: 'transparent' }}>Build Smarter Personas with Rich Data</div>
                 <div className="text-base md:text-lg text-gray-700 font-medium">Express Analytics has mastered the art and science of profiling customers and modeling analytics based on their buying behavior. Our proprietary algorithms create a profile of your customers based on their long-term behavior and recent browsing activity. This dramatically decreases your cost of conversion and improves the return on marketing spend. We marry customer lifetime value with their journey stage and your product categories. Our algorithms detect which community they naturally align with, leading to micro-segmentation. We strive to achieve a solo segment based on the journey stage, community, and CLTV.</div>
               </div>
@@ -337,7 +337,7 @@ export default function CustomerAnalytics() {
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="mb-2 text-sm font-semibold tracking-widest text-gray-900 uppercase opacity-80">Customer Segmentation</div>
+                <div className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">Customer Segmentation</div>
                 <div className="mb-2 text-2xl md:text-3xl font-semibold" style={{ background: 'linear-gradient(90deg, #DC1B36, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textFillColor: 'transparent' }}>Group Your Audience, Grow Smarter</div>
                 <div className="text-base md:text-lg text-gray-700 font-medium">In today’s competitive landscape, complete customer information is a powerful source of competitive advantage for any organization. Our machine learning-based customer analytics solutions segment your customers into personas. We create segments based on different attributes and advanced machine-learning algorithms. Need-based segmentation considers Customer needs & wants to make segments. Value-oriented segmentation makes customers groups based on their economic score (value). RFM segmentation divides customers into best, likely to churn, loyal, etc. based on Recency, frequency, and monetary value of past transactions.</div>
               </div>
@@ -352,7 +352,7 @@ export default function CustomerAnalytics() {
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="mb-2 text-sm font-semibold tracking-widest text-gray-900 uppercase opacity-80">Behavioral Analysis</div>
+                <div className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">Behavioral Analysis</div>
                 <div className="mb-2 text-2xl md:text-3xl font-semibold" style={{ background: 'linear-gradient(90deg, #DC1B36, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textFillColor: 'transparent' }}>Decode What Drives Customer Actions</div>
                 <div className="text-base md:text-lg text-gray-700 font-medium">We can predict customer actions with our behavioral analysis models that use machine learning algorithms on large data sets. We use predictive modeling and customer segmentation to get a deeper picture of a customer’s buying habits and preferences. This allows marketers to target each customer segment uniquely in an effective manner, and improve the response rate of campaigns.</div>
               </div>

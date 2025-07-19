@@ -317,12 +317,12 @@ export default function MarketingAnalytics() {
               <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
                 <div className="rounded-3xl overflow-hidden shadow-xl" style={{ boxShadow: '0 8px 32px 0 rgba(155,81,224,0.10)' }}>
                   <div style={{ background: 'linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%)', padding: 4, borderRadius: 24 }}>
-                    <img src="/Predictive-Power.webp" alt="Predictive Analytics" className="block w-full h-auto rounded-2xl" />
+                    <img src="/Forecast-Future-Perfomance1.webp" alt="Predictive Analytics" className="block w-full h-auto rounded-2xl" />
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="mb-2 text-sm font-semibold tracking-widest text-gray-900 uppercase opacity-80">Predictive Analytics</div>
+                <div className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">Predictive Analytics</div>
                 <div className="mb-2 text-2xl md:text-3xl font-semibold" style={{ background: 'linear-gradient(90deg, #DC1B36, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textFillColor: 'transparent' }}>Forecast Future Performance</div>
                 <div className="text-base md:text-lg text-gray-700 font-medium">Our predictive analytics solutions use advanced machine learning algorithms to forecast marketing performance, identify trends, and predict customer behavior. This enables proactive decision-making and strategic planning to maximize marketing effectiveness.</div>
               </div>
@@ -332,12 +332,12 @@ export default function MarketingAnalytics() {
               <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
                 <div className="rounded-3xl overflow-hidden shadow-xl" style={{ boxShadow: '0 8px 32px 0 rgba(155,81,224,0.10)' }}>
                   <div style={{ background: 'linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%)', padding: 4, borderRadius: 24 }}>
-                    <img src="/Reduce-Churn.webp" alt="Churn Prediction" className="block w-full h-auto rounded-2xl" />
+                    <img src="/Prevent-Customer-Loss.webp" alt="Churn Prediction" className="block w-full h-auto rounded-2xl" />
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="mb-2 text-sm font-semibold tracking-widest text-gray-900 uppercase opacity-80">Churn Prediction</div>
+                <div className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">Churn Prediction</div>
                 <div className="mb-2 text-2xl md:text-3xl font-semibold" style={{ background: 'linear-gradient(90deg, #DC1B36, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textFillColor: 'transparent' }}>Prevent Customer Loss</div>
                 <div className="text-base md:text-lg text-gray-700 font-medium">Our churn prediction models identify customers at risk of leaving before they churn. By analyzing behavioral patterns and engagement metrics, we help you implement targeted retention strategies to reduce customer loss and increase lifetime value.</div>
               </div>
@@ -347,12 +347,12 @@ export default function MarketingAnalytics() {
               <div className="relative w-full md:w-1/2 flex-shrink-0 flex justify-center">
                 <div className="rounded-3xl overflow-hidden shadow-xl" style={{ boxShadow: '0 8px 32px 0 rgba(155,81,224,0.10)' }}>
                   <div style={{ background: 'linear-gradient(90deg, #DC1B36 0%, #9B51E0 100%)', padding: 4, borderRadius: 24 }}>
-                    <img src="/Optimize-Marketing.webp" alt="Campaign Optimization" className="block w-full h-auto rounded-2xl" />
+                    <img src="/Maximize-Campain-Performance.webp" alt="Campaign Optimization" className="block w-full h-auto rounded-2xl" />
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="mb-2 text-sm font-semibold tracking-widest text-gray-900 uppercase opacity-80">Campaign Optimization</div>
+                <div className="inline-block mb-4 px-5 py-2 rounded-full bg-gray-100 text-xs font-semibold tracking-widest text-gray-700">Campaign Optimization</div>
                 <div className="mb-2 text-2xl md:text-3xl font-semibold" style={{ background: 'linear-gradient(90deg, #DC1B36, #9B51E0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', textFillColor: 'transparent' }}>Maximize Campaign Performance</div>
                 <div className="text-base md:text-lg text-gray-700 font-medium">We help optimize your marketing campaigns by analyzing performance data, identifying the most effective channels and messaging, and providing actionable recommendations to improve conversion rates and ROI.</div>
               </div>
@@ -372,7 +372,7 @@ export default function MarketingAnalytics() {
                 {/* Attribution Analysis */}
                 <div className="flex flex-col items-center text-center">
                   <span className="mb-4">
-                    <img src="/Multi-Touch-Attribution.webp" alt="Attribution Analysis icon" className="w-16 h-16 object-contain rounded-xl shadow-lg" />
+                    <img src="/reference.webp" alt="Attribution Analysis icon" className="w-16 h-16 object-contain rounded-xl shadow-lg" />
                   </span>
                   <h4 className="text-xl font-bold mb-2 text-white">Attribution Analysis</h4>
                   <p className="text-white opacity-90">Understand the contribution of each marketing channel to conversions and optimize budget allocation accordingly.</p>

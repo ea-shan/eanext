@@ -33,14 +33,14 @@ const features = [
     title: 'Sentiment Analysis',
     subtitle: 'Understand Public Opinion',
     description: 'Track positive, neutral, and negative sentiments across text, audio, and image formats to understand public perception. This helps improve satisfaction, brand loyalty, and retention.',
-    image: '/Sentiment-Analysis-1.webp',
+    image: '/Understanding-Public-Opinion.webp',
     alt: 'Sentiment Analysis',
   },
   {
     title: 'Emotion Analysis',
     subtitle: 'Go Beyond Sentiment',
     description: 'Move beyond simple sentiment by identifying core emotions like Joy, Trust, Surprise, Anger, Sadness, and Fear. Emotional Analysis enables you to tailor experiences and content strategies more effectively.',
-    image: '/Emotion-Analysis-1.webp',
+    image: '/Go-Beyond-Sentiment.webp',
     alt: 'Emotion Analysis',
   },
   {
